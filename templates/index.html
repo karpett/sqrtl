@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SQRTL — Share, collect, and build together</title>
+  <meta name="description" content="SQRTL is a private friend space for galleries, shared links, collections, and future mini web apps.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brand" href="/">
+        <span class="brand-mark">🐢</span>
+        <span>
+          <strong>SQRTL</strong>
+          <small>friendspace</small>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#home" class="active">Home</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#collections">Collections</a>
+        <a href="#future">Future Apps</a>
+      </nav>
+
+      <button class="menu-button" type="button" aria-label="Open menu">
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <main id="home">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Private space for your favorite people</p>
+          <h1>Share the good stuff without making it feel like cloud storage.</h1>
+          <p class="hero-text">
+            A cozy home page for photos, collections, links, and eventually the little web apps your friend group actually uses.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#gallery" class="button primary">Explore the vibe</a>
+            <a href="#future" class="button secondary">See roadmap</a>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="Water themed turtle artwork">
+          <div class="orb orb-one"></div>
+          <div class="orb orb-two"></div>
+          <div class="mascot-card">
+            <div class="mascot">🐢</div>
+            <div class="bubble small"></div>
+            <div class="bubble medium"></div>
+            <div class="bubble large"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="feature-strip" aria-label="Main features">
+        <article>
+          <span>01</span>
+          <h2>Gallery</h2>
+          <p>Photos grouped by tags, trips, people, and moments.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h2>Collections</h2>
+          <p>Links, notes, files, and plans organized for friends.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h2>Search</h2>
+          <p>Find memories by tag, title, date, or description.</p>
+        </article>
+        <article>
+          <span>04</span>
+          <h2>Apps later</h2>
+          <p>Add polls, trip planners, countdowns, and private tools.</p>
+        </article>
+      </section>
+
+      <section class="content-grid" id="gallery">
+        <div class="section-copy">
+          <p class="eyebrow">Gallery preview</p>
+          <h2>Designed for memories, not folders.</h2>
+          <p>
+            This starter only includes the landing page. Later, the gallery can use a database for metadata and object storage for real images.
+          </p>
+        </div>
+
+        <div class="preview-cards">
+          <article class="photo-card sunset">
+            <span>Beach day</span>
+          </article>
+          <article class="photo-card lake">
+            <span>Weekend trip</span>
+          </article>
+          <article class="photo-card night">
+            <span>Campfire</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="roadmap" id="future">
+        <p class="eyebrow">Build path</p>
+        <h2>Start simple. Add power when you need it.</h2>
+
+        <div class="timeline">
+          <div>
+            <strong>Now</strong>
+            <p>Landing page, domain, Render deployment.</p>
+          </div>
+          <div>
+            <strong>Next</strong>
+            <p>Login, private pages, database tables.</p>
+          </div>
+          <div>
+            <strong>Later</strong>
+            <p>Photo uploads, tags, search, friend permissions.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
