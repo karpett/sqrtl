@@ -27,7 +27,7 @@ body {
   overflow: hidden;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--navy);
-  background: #dff4ff;
+  background: #e8f8ff;
 }
 
 a {
@@ -47,19 +47,20 @@ button {
   overflow: hidden;
   isolation: isolate;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.36) 35%, rgba(255, 255, 255, 0.02) 72%),
-    linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(230,248,255,0.18) 55%, rgba(255,255,255,0.88) 70%),
-    url("../img/reference-landing.png") center center / cover no-repeat;
+    radial-gradient(circle at 86% 18%, rgba(87, 196, 255, 0.46), transparent 25%),
+    radial-gradient(circle at 16% 18%, rgba(255, 255, 255, 0.95), transparent 27%),
+    radial-gradient(circle at 52% 48%, rgba(127, 226, 255, 0.34), transparent 38%),
+    linear-gradient(180deg, #dff4ff 0%, #eefaff 45%, #ffffff 72%, #eefaff 100%);
 }
 
 .app-frame::before {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: -3;
   background:
-    radial-gradient(circle at 14% 23%, rgba(255,255,255,0.62), transparent 22%),
-    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.58) 82%);
+    linear-gradient(90deg, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.58) 34%, rgba(255,255,255,0.08) 72%),
+    linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.68) 78%);
   pointer-events: none;
 }
 
@@ -159,9 +160,9 @@ button {
 .circle-button,
 .profile-button {
   border: 0;
-  background: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.32);
   backdrop-filter: blur(16px);
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.18);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.28);
   color: #0e2b52;
 }
 
@@ -284,6 +285,21 @@ button {
 .hero-art {
   position: relative;
   height: 388px;
+}
+
+.hero-art::before {
+  content: "";
+  position: absolute;
+  left: 1%;
+  top: 22px;
+  width: 380px;
+  height: 300px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 46% 32%, rgba(255,255,255,0.64), transparent 18%),
+    radial-gradient(circle at 50% 62%, rgba(79, 183, 240, 0.36), transparent 58%);
+  filter: blur(1px);
+  opacity: 0.9;
 }
 
 .hero-squirtle {
@@ -617,6 +633,12 @@ button {
 
   .hero-art {
     height: 300px;
+  }
+
+  .hero-art::before {
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(360px, 90vw);
   }
 
   .hero-squirtle {
