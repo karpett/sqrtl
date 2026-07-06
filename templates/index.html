@@ -1,128 +1,145 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="squirtle-hd">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SQRTL — Share, collect, and build together</title>
-  <meta name="description" content="SQRTL is a private friend space for galleries, shared links, collections, and future mini web apps.">
+  <title>SQRTL — Your private friendspace</title>
+  <meta name="description" content="SQRTL is a private friendspace for galleries, collections, shared files, and future mini web apps.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
   <div class="page-shell">
     <header class="site-header">
-      <a class="brand" href="/">
-        <span class="brand-mark">🐢</span>
-        <span>
+      <a class="brand" href="/" aria-label="SQRTL Home">
+        <span class="brand-icon">🐢</span>
+        <span class="brand-text">
           <strong>SQRTL</strong>
-          <small>friendspace</small>
+          <small>Squirtle Squad</small>
         </span>
       </a>
 
-      <nav class="main-nav" aria-label="Main navigation">
+      <nav class="desktop-nav" aria-label="Primary navigation">
         <a href="#home" class="active">Home</a>
         <a href="#gallery">Gallery</a>
         <a href="#collections">Collections</a>
-        <a href="#future">Future Apps</a>
+        <a href="#roadmap">Roadmap</a>
       </nav>
 
-      <button class="menu-button" type="button" aria-label="Open menu">
-        <span></span>
-        <span></span>
-      </button>
+      <a class="header-action" href="#roadmap">Launch plan</a>
     </header>
 
-    <main id="home">
-      <section class="hero">
+    <main>
+      <section class="hero" id="home">
         <div class="hero-copy">
-          <p class="eyebrow">Private space for your favorite people</p>
-          <h1>Share the good stuff without making it feel like cloud storage.</h1>
+          <p class="eyebrow">Default HD theme is live</p>
+          <h1>A cozy online home for your squad.</h1>
           <p class="hero-text">
-            A cozy home page for photos, collections, links, and eventually the little web apps your friend group actually uses.
+            SQRTL is your private friendspace for photos, shared collections, useful links, and future mini web apps — built around a clean aquatic theme.
           </p>
 
           <div class="hero-actions">
-            <a href="#gallery" class="button primary">Explore the vibe</a>
-            <a href="#future" class="button secondary">See roadmap</a>
+            <a class="button primary" href="#gallery">View gallery vibe</a>
+            <a class="button secondary" href="#collections">See features</a>
+          </div>
+
+          <div class="status-row" aria-label="Site feature status">
+            <span><strong>01</strong> Landing page</span>
+            <span><strong>02</strong> Gallery later</span>
+            <span><strong>03</strong> Tags/search later</span>
           </div>
         </div>
 
-        <div class="hero-art" aria-label="Water themed turtle artwork">
-          <div class="orb orb-one"></div>
-          <div class="orb orb-two"></div>
-          <div class="mascot-card">
-            <div class="mascot">🐢</div>
-            <div class="bubble small"></div>
-            <div class="bubble medium"></div>
-            <div class="bubble large"></div>
+        <aside class="hero-art-card" aria-label="HD Squirtle theme artwork">
+          <div class="art-toolbar">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <strong>sqrtl.org</strong>
           </div>
-        </div>
+          <img
+            src="{{ url_for('static', filename='img/squirtle-landing-hd.png') }}"
+            alt="HD Squirtle Squad landing page artwork with water theme">
+        </aside>
       </section>
 
-      <section class="feature-strip" aria-label="Main features">
-        <article>
-          <span>01</span>
-          <h2>Gallery</h2>
-          <p>Photos grouped by tags, trips, people, and moments.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h2>Collections</h2>
-          <p>Links, notes, files, and plans organized for friends.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h2>Search</h2>
-          <p>Find memories by tag, title, date, or description.</p>
-        </article>
-        <article>
-          <span>04</span>
-          <h2>Apps later</h2>
-          <p>Add polls, trip planners, countdowns, and private tools.</p>
-        </article>
+      <section class="feature-dock" id="collections" aria-label="SQRTL feature menu">
+        <a href="#gallery">
+          <span class="feature-icon">🖼️</span>
+          <strong>Gallery</strong>
+          <small>Photos, albums, moments</small>
+        </a>
+        <a href="#collections">
+          <span class="feature-icon">🏷️</span>
+          <strong>Tags</strong>
+          <small>Search by people or trips</small>
+        </a>
+        <a href="#collections">
+          <span class="feature-icon">🔒</span>
+          <strong>Private</strong>
+          <small>Only your friends</small>
+        </a>
+        <a href="#roadmap">
+          <span class="feature-icon">⚡</span>
+          <strong>Mini apps</strong>
+          <small>Polls, plans, tools later</small>
+        </a>
       </section>
 
-      <section class="content-grid" id="gallery">
+      <section class="showcase-grid" id="gallery">
         <div class="section-copy">
-          <p class="eyebrow">Gallery preview</p>
-          <h2>Designed for memories, not folders.</h2>
+          <p class="eyebrow">Gallery direction</p>
+          <h2>Use art first. Add real uploads later.</h2>
           <p>
-            This starter only includes the landing page. Later, the gallery can use a database for metadata and object storage for real images.
+            The site now uses the HD image theme by default. When the database and uploader are added later, real photos can plug into this same layout.
           </p>
         </div>
 
-        <div class="preview-cards">
-          <article class="photo-card sunset">
-            <span>Beach day</span>
+        <div class="gallery-stack">
+          <article class="image-panel large-panel">
+            <img
+              src="{{ url_for('static', filename='img/squirtle-dashboard-hd.png') }}"
+              alt="HD Squirtle Squad dashboard and gallery concept artwork">
           </article>
-          <article class="photo-card lake">
-            <span>Weekend trip</span>
-          </article>
-          <article class="photo-card night">
-            <span>Campfire</span>
-          </article>
+
+          <div class="mini-panels">
+            <article>
+              <span>Theme</span>
+              <strong>Aquatic glass UI</strong>
+            </article>
+            <article>
+              <span>Future</span>
+              <strong>Tag + search gallery</strong>
+            </article>
+          </div>
         </div>
       </section>
 
-      <section class="roadmap" id="future">
-        <p class="eyebrow">Build path</p>
-        <h2>Start simple. Add power when you need it.</h2>
+      <section class="roadmap" id="roadmap">
+        <p class="eyebrow">Build roadmap</p>
+        <h2>What this is ready for next.</h2>
 
-        <div class="timeline">
-          <div>
-            <strong>Now</strong>
-            <p>Landing page, domain, Render deployment.</p>
-          </div>
-          <div>
-            <strong>Next</strong>
-            <p>Login, private pages, database tables.</p>
-          </div>
-          <div>
-            <strong>Later</strong>
-            <p>Photo uploads, tags, search, friend permissions.</p>
-          </div>
+        <div class="roadmap-cards">
+          <article>
+            <span>Now</span>
+            <h3>Homepage on Render</h3>
+            <p>Custom domain, GitHub deploys, and the HD theme as the default look.</p>
+          </article>
+          <article>
+            <span>Next</span>
+            <h3>Database</h3>
+            <p>Add Postgres tables for users, gallery items, tags, albums, and permissions.</p>
+          </article>
+          <article>
+            <span>Later</span>
+            <h3>Photos + search</h3>
+            <p>Use object storage for images and database-backed search for tags and captions.</p>
+          </article>
         </div>
       </section>
     </main>

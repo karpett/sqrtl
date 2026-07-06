@@ -1,53 +1,36 @@
-# SQRTL Render Starter
+# SQRTL Render HD Theme
 
-A Python/Flask starter landing page for `sqrtl.org`.
+Python/Flask starter for `sqrtl.org`, updated to use the generated HD SQRTL/Squirtle-style artwork as the default theme.
+
+## Files changed
+
+- `templates/index.html`
+- `static/css/style.css`
+- `static/img/squirtle-landing-hd.png`
+- `static/img/squirtle-dashboard-hd.png`
 
 ## Local setup
 
 ```bash
-python -m venv .venv
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m flask --app app run --debug
 ```
 
-Windows PowerShell:
-
-```bash
-.venv\Scripts\Activate.ps1
-```
-
-If PowerShell blocks scripts, use:
-
-```bash
-.venv\Scripts\python.exe -m pip install -r requirements.txt
-.venv\Scripts\python.exe app.py
-```
-
-Mac/Linux:
-
-```bash
-source .venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Run locally:
-
-```bash
-flask --app app run --debug
-```
-
-Then open:
+Open:
 
 ```text
 http://127.0.0.1:5000
 ```
 
-## Render settings
+## Deploy updates
 
-- Runtime: Python 3
-- Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn app:app`
-- Free plan is okay for testing, but it can sleep after inactivity.
+After copying these files into your existing repo:
+
+```bash
+git add .
+git commit -m "Set HD Squirtle theme as default"
+git push
+```
+
+Render should redeploy automatically.
