@@ -13,7 +13,7 @@
 <body>
   <main class="app-frame" id="home">
     <header class="topbar">
-      <a href="/" class="brand" aria-label="SQRTL Squad home">
+      <a href="{{ url_for('home') }}" class="brand" aria-label="SQRTL Squad home">
         <img src="{{ url_for('static', filename='img/clean-squirtle-icon.png') }}" alt="">
         <span>
           <strong>SQUIRTLE</strong>
@@ -22,11 +22,11 @@
       </a>
 
       <nav class="nav-pill" aria-label="Main navigation">
-        <a class="active" href="#home">Home</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#collections">Collections</a>
-        <a href="#shared">Shared</a>
-        <a href="#about">About</a>
+        <a class="active" href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('gallery') }}">Gallery</a>
+        <a href="{{ url_for('collections') }}">Collections</a>
+        <a href="{{ url_for('shared') }}">Shared</a>
+        <a href="{{ url_for('about') }}">About</a>
       </nav>
 
       <div class="top-actions">
@@ -50,8 +50,8 @@
           Squirtle Squad is your cozy corner to host, organize, and share the things that matter with your favorite people.
         </p>
         <div class="hero-buttons">
-          <a class="primary-button" href="#gallery">Join the Squad <span>→</span></a>
-          <a class="secondary-button" href="#about">Learn More <span>⊙</span></a>
+          <a class="primary-button" href="{{ url_for('shared') }}">Join the Squad <span>→</span></a>
+          <a class="secondary-button" href="{{ url_for('about') }}">Learn More <span>⊙</span></a>
         </div>
       </div>
 
@@ -60,28 +60,28 @@
       </div>
 
       <aside class="quick-menu" aria-label="Quick menu">
-        <a href="#upload">
+        <a href="{{ url_for('gallery') }}">
           <span class="menu-icon">☁</span>
           <span>
             <strong>Upload</strong>
             <small>Share files and photos</small>
           </span>
         </a>
-        <a href="#collections">
+        <a href="{{ url_for('collections') }}">
           <span class="menu-icon">□</span>
           <span>
             <strong>New Collection</strong>
             <small>Organize your stuff</small>
           </span>
         </a>
-        <a href="#shared">
+        <a href="{{ url_for('shared') }}">
           <span class="menu-icon">♧</span>
           <span>
             <strong>Invite Friends</strong>
             <small>Grow your squad</small>
           </span>
         </a>
-        <a href="#activity">
+        <a href="{{ url_for('about') }}">
           <span class="menu-icon">⌁</span>
           <span>
             <strong>View Activity</strong>
@@ -92,57 +92,57 @@
     </section>
 
     <section class="feature-dock" aria-label="Site highlights">
-      <article>
+      <a href="{{ url_for('about') }}">
         <span class="dock-icon">♜</span>
         <div>
           <strong>Private &amp; Secure</strong>
           <small>Your stuff stays with your squad</small>
         </div>
-      </article>
-      <article>
+      </a>
+      <a href="{{ url_for('shared') }}">
         <span class="dock-icon">♧</span>
         <div>
           <strong>Made for Friends</strong>
           <small>Share, collaborate, and stay connected</small>
         </div>
-      </article>
-      <article>
+      </a>
+      <a href="{{ url_for('collections') }}">
         <span class="dock-icon">▧</span>
         <div>
           <strong>All in One Place</strong>
           <small>Photos, files, links, and more</small>
         </div>
-      </article>
-      <article>
+      </a>
+      <a href="{{ url_for('gallery') }}">
         <span class="dock-icon">ϟ</span>
         <div>
           <strong>Fast &amp; Easy</strong>
           <small>Simple to use, easy to love</small>
         </div>
-      </article>
+      </a>
     </section>
 
-    <section class="recent-row" id="gallery">
+    <section class="recent-row">
       <div class="recent-copy">
         <p>Recently Added</p>
         <h2>Moments shared,<br>memories saved.</h2>
-        <a href="#gallery">View all <span>→</span></a>
+        <a href="{{ url_for('gallery') }}">View all <span>→</span></a>
       </div>
 
       <div class="photo-strip" aria-label="Recent photo cards">
-        <a class="photo-card" href="#gallery">
+        <a class="photo-card" href="{{ url_for('gallery') }}">
           <img src="{{ url_for('static', filename='img/mini-beach.png') }}" alt="Squirtle on a beach at sunset">
           <span>▧</span>
         </a>
-        <a class="photo-card" href="#gallery">
+        <a class="photo-card" href="{{ url_for('gallery') }}">
           <img src="{{ url_for('static', filename='img/mini-friends.png') }}" alt="Squirtle friends outdoors">
           <span>▧</span>
         </a>
-        <a class="photo-card" href="#gallery">
+        <a class="photo-card" href="{{ url_for('gallery') }}">
           <img src="{{ url_for('static', filename='img/mini-float.png') }}" alt="Squirtle floating in water">
           <span>▷</span>
         </a>
-        <a class="photo-card" href="#gallery">
+        <a class="photo-card" href="{{ url_for('gallery') }}">
           <img src="{{ url_for('static', filename='img/mini-campfire.png') }}" alt="Squirtle group around a campfire">
           <span>□</span>
         </a>

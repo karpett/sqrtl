@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} — SQRTL Squad</title>
+  <meta name="description" content="SQRTL Squad placeholder page.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <main class="app-frame placeholder-frame">
+    <header class="topbar">
+      <a href="{{ url_for('home') }}" class="brand" aria-label="SQRTL Squad home">
+        <img src="{{ url_for('static', filename='img/clean-squirtle-icon.png') }}" alt="">
+        <span>
+          <strong>SQUIRTLE</strong>
+          <strong>SQUAD</strong>
+        </span>
+      </a>
+
+      <nav class="nav-pill" aria-label="Main navigation">
+        <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}">Home</a>
+        <a class="{{ 'active' if active_page == 'gallery' else '' }}" href="{{ url_for('gallery') }}">Gallery</a>
+        <a class="{{ 'active' if active_page == 'collections' else '' }}" href="{{ url_for('collections') }}">Collections</a>
+        <a class="{{ 'active' if active_page == 'shared' else '' }}" href="{{ url_for('shared') }}">Shared</a>
+        <a class="{{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">About</a>
+      </nav>
+
+      <div class="top-actions">
+        <button class="circle-button" aria-label="Theme">☼</button>
+        <button class="circle-button" aria-label="Search">⌕</button>
+        <button class="profile-button" aria-label="Profile">
+          <img src="{{ url_for('static', filename='img/clean-squirtle-icon.png') }}" alt="">
+          <span>Trainer Blue</span>
+          <b>⌄</b>
+        </button>
+      </div>
+    </header>
+
+    <section class="placeholder-panel">
+      <div class="placeholder-copy">
+        <p class="placeholder-kicker">{{ page.kicker }}</p>
+        <h1>{{ page.title }}</h1>
+        <h2>Sorry, we’re not ready yet.</h2>
+        <p>{{ page.message }}</p>
+
+        <div class="hero-buttons">
+          <a class="primary-button" href="{{ url_for('home') }}">Back Home <span>→</span></a>
+          <a class="secondary-button" href="{{ url_for('gallery') }}">Preview Gallery <span>⊙</span></a>
+        </div>
+      </div>
+
+      <div class="placeholder-art" aria-hidden="true">
+        <img class="placeholder-squirtle" src="{{ url_for('static', filename='img/hero-squirtle.png') }}" alt="">
+        <div class="placeholder-card">
+          <img src="{{ url_for('static', filename='img/mini-friends.png') }}" alt="">
+          <strong>Coming soon</strong>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wave-footer" aria-label="Footer">
+      <span class="bubble bubble-left"></span>
+      <img src="{{ url_for('static', filename='img/clean-squirtle-icon.png') }}" alt="Squirtle Squad mascot">
+      <span class="bubble bubble-right"></span>
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,13 +1,31 @@
-# SQRTL Landing Clean Background
+# SQRTL Multipage Placeholders
 
-This keeps the latest one-screen landing page structure, but reverts the background to a cleaner CSS water-gradient and replaces the top-left/bottom mascot icon with a cleaner icon.
+This version removes homepage hash navigation and creates real Flask pages.
 
-## Copy into your repo
-
-Copy these into your existing project:
+## Pages
 
 ```text
+/             Home
+/gallery      Placeholder
+/collections  Placeholder
+/shared       Placeholder
+/about        Placeholder
+```
+
+The placeholder pages say "Sorry, we’re not ready yet" and include Squirtle artwork.
+
+## Why this fixes the issue
+
+The previous links used URLs like `/#gallery`, which made the browser jump-scroll inside the homepage. These links now go to real pages instead.
+
+## Copy into your existing repo
+
+Copy these into your current project folder:
+
+```text
+app.py
 templates/index.html
+templates/placeholder.html
 static/css/style.css
 static/img/
 ```
@@ -17,7 +35,7 @@ static/img/
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "Clean up landing background and icons"
+git commit -m "Add multipage placeholders"
 git push
 ```
 
