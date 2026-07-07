@@ -1809,3 +1809,101 @@ body:has(.tool-frame) {
     min-height: 40px;
   }
 }
+
+
+/* things pages: fix full-page scrolling and slightly smaller calendar */
+html:has(.tool-frame),
+body:has(.tool-frame) {
+  height: auto;
+  min-height: 100%;
+  overflow-y: auto;
+}
+
+body:has(.tool-frame) {
+  align-items: flex-start;
+  padding: 18px 0 0;
+}
+
+body:has(.tool-frame) .app-frame {
+  height: auto;
+  min-height: calc(100vh - 36px);
+  overflow: visible;
+}
+
+.tool-frame {
+  height: auto !important;
+  min-height: calc(100vh - 36px);
+  overflow: visible !important;
+  padding-bottom: 48px;
+}
+
+.tool-frame .wave-footer {
+  position: relative !important;
+  inset: auto !important;
+  width: min(180px, 48vw);
+  height: 54px;
+  margin: 32px auto 18px;
+}
+
+.tool-frame .wave-footer img {
+  width: 62px;
+  height: 62px;
+  top: -28px;
+}
+
+/* calendar: a bit smaller and less tall */
+.calendar-tool .calendar-card {
+  width: min(100%, 940px);
+  justify-self: center;
+  padding: clamp(18px, 2.4vw, 28px);
+}
+
+.calendar-tool .calendar-top {
+  margin-bottom: 14px;
+}
+
+.calendar-tool .calendar-grid {
+  gap: clamp(6px, 0.85vw, 10px);
+}
+
+.calendar-tool .calendar-day {
+  min-height: clamp(38px, 5.6vw, 64px);
+  font-size: clamp(0.9rem, 1.05vw, 1.08rem);
+  border-radius: 13px;
+}
+
+/* split can stay wide, but leave enough page space for footer */
+.split-tool .split-card {
+  width: min(100%, 1040px);
+  justify-self: center;
+}
+
+@media (max-width: 900px) {
+  body:has(.tool-frame) {
+    padding-top: 10px;
+  }
+
+  .tool-frame {
+    padding-bottom: 36px;
+  }
+
+  .tool-frame .wave-footer {
+    margin-bottom: 14px;
+  }
+}
+
+@media (max-width: 620px) {
+  .calendar-tool .calendar-card {
+    padding: 16px;
+  }
+
+  .calendar-tool .calendar-grid {
+    gap: 5px;
+  }
+
+  .calendar-tool .calendar-day {
+    min-height: 34px;
+    border-radius: 10px;
+    font-size: 0.84rem;
+  }
+}

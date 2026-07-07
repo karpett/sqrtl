@@ -1,14 +1,14 @@
-# sqrtl things vertical scroll layout
+# sqrtl things scroll/footer + smaller calendar
 
-this patch changes the `things` app pages so they can be longer and scroll naturally.
+this patch fixes the calendar/split page scrolling and slightly shrinks the calendar.
 
 ## changed
 
-- calendar/split pages are no longer restricted to a short fixed-height panel
-- title, subtitle, and text sit at the top
-- the app sits directly underneath the text
-- calendar and split app areas now take the full width of the panel
-- footer moves naturally below the content instead of forcing everything into one screen
+- calendar is slightly smaller
+- calendar is less tall
+- calendar/split pages can scroll all the way to the footer
+- footer is placed naturally below the app content
+- reduced extra bottom spacing so the footer is reachable
 
 ## copy into your repo
 
@@ -23,6 +23,6 @@ static/css/style.css
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "make things app pages scroll vertically"
+git commit -m "fix things page scrolling and calendar size"
 git push
 ```
