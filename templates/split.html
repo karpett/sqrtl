@@ -59,8 +59,9 @@
         </div>
       </div>
 
-      <div class="ai-erp-column-controls" aria-label="show or hide columns">
-        {% for column in ["name", "cost", "gst", "pst", "other", "tip", "total"] %}
+      <div class="ai-erp-column-controls" aria-label="show or hide optional columns">
+        <span class="ai-erp-fixed-columns" aria-hidden="true">fixed: name, cost, total</span>
+        {% for column in ["gst", "pst", "other", "tip"] %}
         <label><input type="checkbox" data-ai-col-toggle="{{ column }}" checked> {{ column }}</label>
         {% endfor %}
       </div>
