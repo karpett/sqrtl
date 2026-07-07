@@ -1,19 +1,31 @@
-# sqrtl icon replacement + no preview gallery
+# sqrtl things dropdown
 
-this patch makes two changes:
+this update replaces `shared` with a `things` dropdown.
 
-- replaces the current site icon/logo images with the new squirtle sunglasses icon
-- removes the `preview gallery` button from the placeholder/sub pages
+## changed
+
+- top nav now has `things`
+- `things` dropdown includes:
+  - `calendar`
+  - `split`
+- added `/things/calendar`
+- added `/things/split`
+- `/shared` redirects to `/things/calendar`
+- calendar page has a cute monthly calendar
+- split page has a cute bill splitter calculator
 
 ## copy into your repo
 
-copy these files into your current project:
+copy these into your current project:
 
 ```text
+app.py
 templates/index.html
 templates/placeholder.html
+templates/calendar.html
+templates/split.html
 static/css/style.css
-static/img/cool-squirtle-icon.png
+static/js/app.js
 ```
 
 ## deploy
@@ -21,6 +33,6 @@ static/img/cool-squirtle-icon.png
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "replace icons and remove preview gallery button"
+git commit -m "add things dropdown calendar and split"
 git push
 ```

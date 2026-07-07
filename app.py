@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 
 app = Flask(__name__)
 
@@ -12,11 +12,6 @@ PLACEHOLDER_PAGES = {
         "title": "collections",
         "kicker": "organize together",
         "message": "soon this will hold shared links, files, trip ideas, plans, and friend-group collections.",
-    },
-    "shared": {
-        "title": "shared",
-        "kicker": "squad access",
-        "message": "soon this will show what has been shared with friends, invites, permissions, and activity.",
     },
     "about": {
         "title": "about",
@@ -39,7 +34,15 @@ def collections():
 
 @app.route("/shared")
 def shared():
-    return render_template("placeholder.html", active_page="shared", page=PLACEHOLDER_PAGES["shared"])
+    return redirect(url_for("calendar_page"))
+
+@app.route("/things/calendar")
+def calendar_page():
+    return render_template("calendar.html", active_page="things")
+
+@app.route("/things/split")
+def split_page():
+    return render_template("split.html", active_page="things")
 
 @app.route("/about")
 def about():

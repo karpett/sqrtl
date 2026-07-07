@@ -26,7 +26,15 @@
         <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}">home</a>
         <a class="{{ 'active' if active_page == 'gallery' else '' }}" href="{{ url_for('gallery') }}">gallery</a>
         <a class="{{ 'active' if active_page == 'collections' else '' }}" href="{{ url_for('collections') }}">collections</a>
-        <a class="{{ 'active' if active_page == 'shared' else '' }}" href="{{ url_for('shared') }}">shared</a>
+        <div class="nav-dropdown">
+          <button class="nav-drop-button {{ 'active' if active_page == 'things' else '' }}" type="button" aria-expanded="false">
+            things <span>⌄</span>
+          </button>
+          <div class="nav-drop-menu">
+            <a href="{{ url_for('calendar_page') }}">calendar</a>
+            <a href="{{ url_for('split_page') }}">split</a>
+          </div>
+        </div>
         <a class="{{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">about</a>
       </nav>
 
@@ -69,11 +77,11 @@
             <small>organize your stuff</small>
           </span>
         </a>
-        <a href="{{ url_for('shared') }}">
+        <a href="{{ url_for('calendar_page') }}">
           <span class="menu-icon">♧</span>
           <span>
-            <strong>invite friends</strong>
-            <small>grow your squad</small>
+            <strong>calendar</strong>
+            <small>cute monthly planner</small>
           </span>
         </a>
         <a href="{{ url_for('about') }}">
