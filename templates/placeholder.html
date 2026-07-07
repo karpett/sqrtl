@@ -3,18 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title }} — SQRTL Squad</title>
-  <meta name="description" content="SQRTL Squad placeholder page.">
+  <title>{% block title %}SQRTL Squad{% endblock %}</title>
+  <meta name="description" content="SQRTL Squad is a cozy private space to host, organize, and share with friends.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
 </head>
 <body>
   <main class="app-frame placeholder-frame">
     <header class="topbar">
       <a href="{{ url_for('home') }}" class="brand" aria-label="SQRTL Squad home">
-        <img src="{{ url_for('static', filename='img/clean-squirtle-icon.png') }}" alt="">
+        <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="">
         <span>
           <strong>SQUIRTLE</strong>
           <strong>SQUAD</strong>
@@ -30,13 +31,22 @@
       </nav>
 
       <div class="top-actions">
-        <button class="circle-button" aria-label="Theme">☼</button>
-        <button class="circle-button" aria-label="Search">⌕</button>
-        <button class="profile-button" aria-label="Profile">
-          <img src="{{ url_for('static', filename='img/clean-squirtle-icon.png') }}" alt="">
-          <span>Trainer Blue</span>
-          <b>⌄</b>
-        </button>
+        <button class="circle-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">☼</button>
+        <button class="circle-button" id="searchToggle" type="button" aria-label="Open search" title="Search">⌕</button>
+
+        <div class="profile-wrap">
+          <button class="profile-button" id="profileToggle" type="button" aria-label="Open profile menu" aria-expanded="false">
+            <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="">
+            <span>Trainer Blue</span>
+            <b>⌄</b>
+          </button>
+          <div class="profile-menu" id="profileMenu" aria-label="Profile menu">
+            <strong>Trainer Blue</strong>
+            <a href="{{ url_for('shared') }}">Invite friends</a>
+            <a href="{{ url_for('collections') }}">Collections</a>
+            <button type="button" disabled>Login coming later</button>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -54,7 +64,9 @@
       </div>
 
       <div class="placeholder-art" aria-hidden="true">
-        <img class="placeholder-squirtle" src="{{ url_for('static', filename='img/hero-squirtle.png') }}" alt="">
+        <div class="water-portal placeholder-portal">
+          <img class="placeholder-squirtle" src="{{ url_for('static', filename='img/hero-squirtle.png') }}" alt="">
+        </div>
         <div class="placeholder-card">
           <img src="{{ url_for('static', filename='img/mini-friends.png') }}" alt="">
           <strong>Coming soon</strong>
@@ -64,9 +76,18 @@
 
     <footer class="wave-footer" aria-label="Footer">
       <span class="bubble bubble-left"></span>
-      <img src="{{ url_for('static', filename='img/clean-squirtle-icon.png') }}" alt="Squirtle Squad mascot">
+      <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="Squirtle Squad mascot">
       <span class="bubble bubble-right"></span>
     </footer>
   </main>
+  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+      <button class="search-close" id="searchClose" type="button" aria-label="Close search">×</button>
+      <p>Search SQRTL</p>
+      <h2 id="searchTitle">Search is coming soon.</h2>
+      <input type="search" placeholder="Try photos, tags, friends..." disabled>
+      <small>When the gallery is ready, this will search photos, tags, collections, and shared items.</small>
+    </div>
+  </div>
 </body>
 </html>
