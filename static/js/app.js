@@ -7,14 +7,16 @@ const searchClose = document.getElementById("searchClose");
 const savedTheme = localStorage.getItem("sqrtl-theme");
 if (savedTheme === "deep") {
   root.classList.add("deep-theme");
-  if (themeToggle) themeToggle.textContent = "☾";
+  if (themeToggle) themeToggle.textContent = "☀️";
+} else {
+  if (themeToggle) themeToggle.textContent = "🌙";
 }
 
 themeToggle?.addEventListener("click", () => {
   root.classList.toggle("deep-theme");
   const isDeep = root.classList.contains("deep-theme");
   localStorage.setItem("sqrtl-theme", isDeep ? "deep" : "light");
-  themeToggle.textContent = isDeep ? "☾" : "☼";
+  themeToggle.textContent = isDeep ? "☀️" : "🌙";
 });
 
 function openSearch() {

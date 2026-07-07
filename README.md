@@ -1,28 +1,45 @@
-# SQRTL Option C Footer Fix
+# SQRTL Pastel Mockup Theme
 
-This is the same Option C site update, with the placeholder-page card reduced so it no longer blocks the footer wave.
+This version restyles the site to match the latest pastel mockup much more closely.
 
-## Changed
+## What changed
 
-- Shortened the placeholder panel.
-- Reduced placeholder art/card sizing slightly.
-- Added short-screen CSS so the panel stays above the footer.
+- Softer white-to-blue gradient background
+- Smaller cute logo in the top-left
+- Pastel hero layout with decorative stars / droplets
+- Circular Squirtle portal in the center
+- Pink-tinted rounded quick-menu card on the right
+- Smaller recent photo cards with pastel frames
+- Decorative wave footer with themed items and mascot
+- Same page routes retained:
+  - /
+  - /gallery
+  - /collections
+  - /shared
+  - /about
 
 ## Copy into your repo
 
-At minimum, copy:
+Copy these files/folders into your current local project:
 
 ```text
+templates/index.html
+templates/placeholder.html
 static/css/style.css
+static/js/app.js
+static/img/mock-logo-icon.png
+static/img/mock-footer-left.png
+static/img/mock-footer-center.png
+static/img/mock-footer-right.png
 ```
 
-Or copy the full package if preferred.
+Or replace the whole project with the contents of this package.
 
 ## Deploy
 
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "Fix placeholder page footer overlap"
+git commit -m "Restyle site to match pastel mockup"
 git push
 ```
