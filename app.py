@@ -4,24 +4,24 @@ app = Flask(__name__)
 
 PLACEHOLDER_PAGES = {
     "gallery": {
-        "title": "Gallery",
-        "kicker": "Photo space",
-        "message": "Soon this will become your squad gallery with albums, tags, search, and shared memories.",
+        "title": "gallery",
+        "kicker": "photo space",
+        "message": "soon this will become your squad gallery with albums, tags, search, and shared memories.",
     },
     "collections": {
-        "title": "Collections",
-        "kicker": "Organize together",
-        "message": "Soon this will hold shared links, files, trip ideas, plans, and friend-group collections.",
+        "title": "collections",
+        "kicker": "organize together",
+        "message": "soon this will hold shared links, files, trip ideas, plans, and friend-group collections.",
     },
     "shared": {
-        "title": "Shared",
-        "kicker": "Squad access",
-        "message": "Soon this will show what has been shared with friends, invites, permissions, and activity.",
+        "title": "shared",
+        "kicker": "squad access",
+        "message": "soon this will show what has been shared with friends, invites, permissions, and activity.",
     },
     "about": {
-        "title": "About",
-        "kicker": "About SQRTL",
-        "message": "Soon this page will explain what SQRTL is, who it is for, and how the squad space works.",
+        "title": "about",
+        "kicker": "about sqrtl",
+        "message": "soon this page will explain what sqrtl is, who it is for, and how the squad space works.",
     },
 }
 

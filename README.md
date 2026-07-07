@@ -1,45 +1,26 @@
-# SQRTL Pastel Mockup Theme
+# sqrtl icon replacement + no preview gallery
 
-This version restyles the site to match the latest pastel mockup much more closely.
+this patch makes two changes:
 
-## What changed
+- replaces the current site icon/logo images with the new squirtle sunglasses icon
+- removes the `preview gallery` button from the placeholder/sub pages
 
-- Softer white-to-blue gradient background
-- Smaller cute logo in the top-left
-- Pastel hero layout with decorative stars / droplets
-- Circular Squirtle portal in the center
-- Pink-tinted rounded quick-menu card on the right
-- Smaller recent photo cards with pastel frames
-- Decorative wave footer with themed items and mascot
-- Same page routes retained:
-  - /
-  - /gallery
-  - /collections
-  - /shared
-  - /about
+## copy into your repo
 
-## Copy into your repo
-
-Copy these files/folders into your current local project:
+copy these files into your current project:
 
 ```text
 templates/index.html
 templates/placeholder.html
 static/css/style.css
-static/js/app.js
-static/img/mock-logo-icon.png
-static/img/mock-footer-left.png
-static/img/mock-footer-center.png
-static/img/mock-footer-right.png
+static/img/cool-squirtle-icon.png
 ```
 
-Or replace the whole project with the contents of this package.
-
-## Deploy
+## deploy
 
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "Restyle site to match pastel mockup"
+git commit -m "replace icons and remove preview gallery button"
 git push
 ```

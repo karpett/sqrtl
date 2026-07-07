@@ -3,36 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}SQRTL Squad{% endblock %}</title>
-  <meta name="description" content="SQRTL Squad is a cozy private space to host, organize, and share with friends.">
+  <title>{% block title %}sqrtl squad{% endblock %}</title>
+  <meta name="description" content="sqrtl squad is a cozy private space to host, organize, and share with friends.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
 </head>
 <body>
-  <main class="app-frame" id="placeholderPage">
+  <main class="app-frame placeholder-frame">
     <header class="topbar">
-      <a href="{{ url_for('home') }}" class="brand" aria-label="SQRTL Squad home">
-        <img src="{{ url_for('static', filename='img/mock-logo-icon.png') }}" alt="">
+      <a href="{{ url_for('home') }}" class="brand" aria-label="sqrtl squad home">
+        <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="">
         <span>
-          <strong>SQUIRTLE</strong>
-          <strong>SQUAD</strong>
+          <strong>squirtle</strong>
+          <strong>squad</strong>
         </span>
       </a>
 
       <nav class="nav-pill" aria-label="Main navigation">
-        <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}">Home</a>
-        <a class="{{ 'active' if active_page == 'gallery' else '' }}" href="{{ url_for('gallery') }}">Gallery</a>
-        <a class="{{ 'active' if active_page == 'collections' else '' }}" href="{{ url_for('collections') }}">Collections</a>
-        <a class="{{ 'active' if active_page == 'shared' else '' }}" href="{{ url_for('shared') }}">Shared</a>
-        <a class="{{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">About</a>
+        <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}">home</a>
+        <a class="{{ 'active' if active_page == 'gallery' else '' }}" href="{{ url_for('gallery') }}">gallery</a>
+        <a class="{{ 'active' if active_page == 'collections' else '' }}" href="{{ url_for('collections') }}">collections</a>
+        <a class="{{ 'active' if active_page == 'shared' else '' }}" href="{{ url_for('shared') }}">shared</a>
+        <a class="{{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">about</a>
       </nav>
 
       <div class="top-actions">
-        <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
-        <button class="icon-button" id="searchToggle" type="button" aria-label="Open search" title="Search">🔭</button>
+        <button class="circle-button theme-toggle-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme"><img id="themeToggleIcon" src="{{ url_for('static', filename='img/theme-sun.png') }}" alt="" aria-hidden="true"></button>
+        <button class="circle-button" id="searchToggle" type="button" aria-label="Open search" title="Search">⌕</button>
       </div>
     </header>
 
@@ -40,44 +40,32 @@
       <div class="placeholder-copy">
         <p class="placeholder-kicker">{{ page.kicker }}</p>
         <h1>{{ page.title }}</h1>
-        <h2>Sorry, we’re not ready yet.</h2>
+        <h2>sorry, we’re not ready yet.</h2>
         <p>{{ page.message }}</p>
 
-        <div class="placeholder-links">
-          <a class="primary-link" href="{{ url_for('home') }}">Back Home</a>
-          <a class="secondary-link" href="{{ url_for('gallery') }}">Preview Gallery</a>
+        <div class="hero-buttons">
+          <a class="primary-button" href="{{ url_for('home') }}">Back home <span>→</span></a>
         </div>
       </div>
 
       <div class="placeholder-art" aria-hidden="true">
         <div class="water-portal placeholder-portal">
-          <img class="placeholder-squirtle" src="{{ url_for('static', filename='img/hero-squirtle.png') }}" alt="">
-        </div>
-        <div class="placeholder-card">
-          <img src="{{ url_for('static', filename='img/mini-friends.png') }}" alt="">
-          <strong>Coming soon</strong>
+          <img class="placeholder-squirtle" src="{{ url_for('static', filename='img/sad-squirtle.png') }}" alt="">
         </div>
       </div>
     </section>
 
     <footer class="wave-footer" aria-label="Footer">
-      <div class="footer-inner">
-        <img class="footer-deco footer-left" src="{{ url_for('static', filename='img/mock-footer-left.png') }}" alt="">
-        <div class="footer-center-wrap">
-          <img class="footer-mascot" src="{{ url_for('static', filename='img/mock-footer-center.png') }}" alt="">
-          <p>SQUIRTLE SQUAD © 2024 - Share Memories, Spread Happiness</p>
-        </div>
-        <img class="footer-deco footer-right" src="{{ url_for('static', filename='img/mock-footer-right.png') }}" alt="">
-      </div>
+      <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="sqrtl icon">
     </footer>
   </main>
   <div class="search-overlay" id="searchOverlay" aria-hidden="true">
     <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
       <button class="search-close" id="searchClose" type="button" aria-label="Close search">×</button>
-      <p>Search SQRTL</p>
-      <h2 id="searchTitle">Search is coming soon.</h2>
-      <input type="search" placeholder="Try photos, tags, collections..." disabled>
-      <small>This will later search photos, tags, collections, and shared items.</small>
+      <p>search sqrtl</p>
+      <h2 id="searchTitle">search is coming soon.</h2>
+      <input type="search" placeholder="try photos, tags, friends..." disabled>
+      <small>when the gallery is ready, this will search photos, tags, collections, and shared items.</small>
     </div>
   </div>
 </body>
