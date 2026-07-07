@@ -1,87 +1,31 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>calendar — sqrtl squad</title>
-  <meta name="description" content="a cute calendar page for sqrtl squad.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
-</head>
-<body>
-  <main class="app-frame tool-frame">
-    <header class="topbar">
-      <a href="{{ url_for('home') }}" class="brand" aria-label="sqrtl squad home">
-        <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="">
-        <span>
-          <strong>squirtle</strong>
-          <strong>squad</strong>
-        </span>
-      </a>
+{% extends "base.html" %}
+{% set main_class = "tool-frame" %}
 
-      <nav class="nav-pill" aria-label="main navigation">
-        <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}">home</a>
-        <a class="{{ 'active' if active_page == 'gallery' else '' }}" href="{{ url_for('gallery') }}">gallery</a>
-        <a class="{{ 'active' if active_page == 'collections' else '' }}" href="{{ url_for('collections') }}">collections</a>
-        <div class="nav-dropdown">
-          <button class="nav-drop-button {{ 'active' if active_page == 'things' else '' }}" type="button" aria-expanded="false">
-            things <span>⌄</span>
-          </button>
-          <div class="nav-drop-menu">
-            <a href="{{ url_for('calendar_page') }}">calendar</a>
-            <a href="{{ url_for('split_page') }}">split</a>
-          </div>
-        </div>
-        <a class="{{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">about</a>
-      </nav>
+{% block title %}calendar — sqrtl squad{% endblock %}
+{% block description %}a cute calendar page for sqrtl squad.{% endblock %}
 
-      <div class="top-actions">
-        <button class="circle-button theme-toggle-button" id="themeToggle" type="button" aria-label="toggle theme" title="toggle theme"><img id="themeToggleIcon" src="{{ url_for('static', filename='img/theme-sun.png') }}" alt="" aria-hidden="true"></button>
-        <button class="circle-button" id="searchToggle" type="button" aria-label="open search" title="search">⌕</button>
-      </div>
-    </header>
-
-    <section class="tool-panel calendar-tool">
-      <div class="tool-copy">
-        <p class="tool-kicker">things</p>
-        <h1>calendar</h1>
-        <p>a cute little planner for squad dates, reminders, birthdays, and future hangouts.</p>
-      </div>
-
-      <div class="calendar-card">
-        <div class="calendar-top">
-          <button class="mini-tool-button" id="prevMonth" type="button">←</button>
-          <div>
-            <strong id="calendarMonth">month</strong>
-            <small>click days later for events</small>
-          </div>
-          <button class="mini-tool-button" id="nextMonth" type="button">→</button>
-        </div>
-
-        <div class="calendar-weekdays">
-          <span>sun</span><span>mon</span><span>tue</span><span>wed</span><span>thu</span><span>fri</span><span>sat</span>
-        </div>
-
-        <div class="calendar-grid" id="calendarGrid" aria-label="calendar days"></div>
-      </div>
-    </section>
-
-    <footer class="wave-footer" aria-label="footer">
-      <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="sqrtl icon">
-    </footer>
-  </main>
-
-  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
-    <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
-      <button class="search-close" id="searchClose" type="button" aria-label="close search">×</button>
-      <p>search sqrtl</p>
-      <h2 id="searchTitle">search is coming soon.</h2>
-      <input type="search" placeholder="try photos, tags, friends..." disabled>
-      <small>when the gallery is ready, this will search photos, tags, collections, and shared items.</small>
-    </div>
+{% block content %}
+<section class="tool-panel calendar-tool" aria-labelledby="calendarTitle">
+  <div class="tool-copy">
+    <p class="tool-kicker">things</p>
+    <h1 id="calendarTitle">calendar</h1>
+    <p>a cute little planner for squad dates, reminders, birthdays, and future hangouts.</p>
   </div>
-</body>
-</html>
+
+  <div class="calendar-card">
+    <div class="calendar-top">
+      <button class="mini-tool-button" id="prevMonth" type="button" aria-label="previous month">←</button>
+      <div>
+        <strong id="calendarMonth" aria-live="polite">month</strong>
+        <small>click days later for events</small>
+      </div>
+      <button class="mini-tool-button" id="nextMonth" type="button" aria-label="next month">→</button>
+    </div>
+
+    <div class="calendar-weekdays" aria-hidden="true">
+      <span>sun</span><span>mon</span><span>tue</span><span>wed</span><span>thu</span><span>fri</span><span>sat</span>
+    </div>
+    <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="calendar days"></div>
+  </div>
+</section>
+{% endblock %}

@@ -1,138 +1,66 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}sqrtl squad{% endblock %}</title>
-  <meta name="description" content="sqrtl squad is a cozy private space to host, organize, and share with friends.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
-</head>
-<body>
-  <main class="app-frame" id="home">
-    <header class="topbar">
-      <a href="{{ url_for('home') }}" class="brand" aria-label="sqrtl squad home">
-        <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="">
-        <span>
-          <strong>squirtle</strong>
-          <strong>squad</strong>
-        </span>
-      </a>
+{% extends "base.html" %}
 
-      <nav class="nav-pill" aria-label="Main navigation">
-        <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}">home</a>
-        <a class="{{ 'active' if active_page == 'gallery' else '' }}" href="{{ url_for('gallery') }}">gallery</a>
-        <a class="{{ 'active' if active_page == 'collections' else '' }}" href="{{ url_for('collections') }}">collections</a>
-        <div class="nav-dropdown">
-          <button class="nav-drop-button {{ 'active' if active_page == 'things' else '' }}" type="button" aria-expanded="false">
-            things <span>⌄</span>
-          </button>
-          <div class="nav-drop-menu">
-            <a href="{{ url_for('calendar_page') }}">calendar</a>
-            <a href="{{ url_for('split_page') }}">split</a>
-          </div>
-        </div>
-        <a class="{{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">about</a>
-      </nav>
+{% block content %}
+<section class="hero-grid no-dock">
+  <div class="hero-copy hero-copy-compact">
+    <h1>
+      <span>share more.</span>
+      <span><em>squirtle</em></span>
+      <span>together.</span>
+    </h1>
+    <p>squirtle Squad is your cozy corner to host, organize, and share the things that matter with your favorite people.</p>
+  </div>
 
-      <div class="top-actions">
-        <button class="circle-button theme-toggle-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme"><img id="themeToggleIcon" src="{{ url_for('static', filename='img/theme-sun.png') }}" alt="" aria-hidden="true"></button>
-        <button class="circle-button" id="searchToggle" type="button" aria-label="Open search" title="Search">⌕</button>
-      </div>
-    </header>
-
-    <section class="hero-grid no-dock">
-      <div class="hero-copy hero-copy-compact">
-        <h1>
-          <span>share more.</span>
-          <span><em>squirtle</em></span>
-          <span>together.</span>
-        </h1>
-        <p>
-          squirtle Squad is your cozy corner to host, organize, and share the things that matter with your favorite people.
-        </p>
-      </div>
-
-      <div class="hero-art portal-art" aria-hidden="true">
-        <div class="water-portal">
-          <img class="hero-squirtle" src="{{ url_for('static', filename='img/hero-squirtle.png') }}" alt="">
-        </div>
-      </div>
-
-      <aside class="quick-menu" aria-label="Quick menu">
-        <a href="{{ url_for('gallery') }}">
-          <span class="menu-icon">☁</span>
-          <span>
-            <strong>upload</strong>
-            <small>share files and photos</small>
-          </span>
-        </a>
-        <a href="{{ url_for('collections') }}">
-          <span class="menu-icon">□</span>
-          <span>
-            <strong>new collection</strong>
-            <small>organize your stuff</small>
-          </span>
-        </a>
-        <a href="{{ url_for('calendar_page') }}">
-          <span class="menu-icon">♧</span>
-          <span>
-            <strong>calendar</strong>
-            <small>cute monthly planner</small>
-          </span>
-        </a>
-        <a href="{{ url_for('about') }}">
-          <span class="menu-icon">⌁</span>
-          <span>
-            <strong>view activity</strong>
-            <small>see what's new</small>
-          </span>
-        </a>
-      </aside>
-    </section>
-
-    <section class="recent-row no-dock-recent">
-      <div class="recent-copy">
-        <p>recently added</p>
-        <h2>moments shared,<br>memories saved.</h2>
-        <a href="{{ url_for('gallery') }}">view all <span>→</span></a>
-      </div>
-
-      <div class="photo-strip" aria-label="Recent photo cards">
-        <a class="photo-card offset-card" href="{{ url_for('gallery') }}">
-          <img src="{{ url_for('static', filename='img/mini-beach.png') }}" alt="squirtle on a beach at sunset">
-          <span>▧</span>
-        </a>
-        <a class="photo-card" href="{{ url_for('gallery') }}">
-          <img src="{{ url_for('static', filename='img/mini-friends.png') }}" alt="squirtle friends outdoors">
-          <span>▧</span>
-        </a>
-        <a class="photo-card offset-card" href="{{ url_for('gallery') }}">
-          <img src="{{ url_for('static', filename='img/mini-float.png') }}" alt="squirtle floating in water">
-          <span>▷</span>
-        </a>
-        <a class="photo-card" href="{{ url_for('gallery') }}">
-          <img src="{{ url_for('static', filename='img/mini-campfire.png') }}" alt="squirtle group around a campfire">
-          <span>□</span>
-        </a>
-      </div>
-    </section>
-
-    <footer class="wave-footer" aria-label="Footer">
-      <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="sqrtl icon">
-    </footer>
-  </main>
-  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
-    <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
-      <button class="search-close" id="searchClose" type="button" aria-label="Close search">×</button>
-      <p>search sqrtl</p>
-      <h2 id="searchTitle">search is coming soon.</h2>
-      <input type="search" placeholder="try photos, tags, friends..." disabled>
-      <small>when the gallery is ready, this will search photos, tags, collections, and shared items.</small>
+  <div class="hero-art portal-art" aria-hidden="true">
+    <div class="water-portal">
+      <img class="hero-squirtle" src="{{ url_for('static', filename='img/hero-squirtle.png') }}" alt="">
     </div>
   </div>
-</body>
-</html>
+
+  <aside class="quick-menu" aria-label="quick menu">
+    <a href="{{ url_for('gallery') }}">
+      <span class="menu-icon" aria-hidden="true">☁</span>
+      <span><strong>upload</strong><small>share files and photos</small></span>
+    </a>
+    <a href="{{ url_for('collections') }}">
+      <span class="menu-icon" aria-hidden="true">□</span>
+      <span><strong>new collection</strong><small>organize your stuff</small></span>
+    </a>
+    <a href="{{ url_for('calendar_page') }}">
+      <span class="menu-icon" aria-hidden="true">♧</span>
+      <span><strong>calendar</strong><small>cute monthly planner</small></span>
+    </a>
+    <a href="{{ url_for('about') }}">
+      <span class="menu-icon" aria-hidden="true">⌁</span>
+      <span><strong>view activity</strong><small>see what's new</small></span>
+    </a>
+  </aside>
+</section>
+
+<section class="recent-row no-dock-recent" aria-labelledby="recentTitle">
+  <div class="recent-copy">
+    <p>recently added</p>
+    <h2 id="recentTitle">moments shared,<br>memories saved.</h2>
+    <a href="{{ url_for('gallery') }}">view all <span aria-hidden="true">→</span></a>
+  </div>
+
+  <div class="photo-strip" aria-label="recent photo cards">
+    <a class="photo-card offset-card" href="{{ url_for('gallery') }}">
+      <img src="{{ url_for('static', filename='img/mini-beach.png') }}" alt="squirtle on a beach at sunset" loading="lazy">
+      <span aria-hidden="true">▧</span>
+    </a>
+    <a class="photo-card" href="{{ url_for('gallery') }}">
+      <img src="{{ url_for('static', filename='img/mini-friends.png') }}" alt="squirtle friends outdoors" loading="lazy">
+      <span aria-hidden="true">▧</span>
+    </a>
+    <a class="photo-card offset-card" href="{{ url_for('gallery') }}">
+      <img src="{{ url_for('static', filename='img/mini-float.png') }}" alt="squirtle floating in water" loading="lazy">
+      <span aria-hidden="true">▷</span>
+    </a>
+    <a class="photo-card" href="{{ url_for('gallery') }}">
+      <img src="{{ url_for('static', filename='img/mini-campfire.png') }}" alt="squirtle group around a campfire" loading="lazy">
+      <span aria-hidden="true">□</span>
+    </a>
+  </div>
+</section>
+{% endblock %}

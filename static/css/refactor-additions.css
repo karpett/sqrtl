@@ -1,0 +1,198 @@
+/* Small additive layer for accessibility and state handling.
+   Keep the existing style.css in place to preserve the current visual design. */
+
+[hidden] {
+  display: none !important;
+}
+
+.skip-link {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 9999;
+  transform: translateY(-180%);
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--panel-strong, #fff);
+  color: var(--navy, #0a254f);
+  font-weight: 900;
+  box-shadow: var(--shadow, 0 16px 36px rgba(0, 0, 0, 0.18));
+  transition: transform 160ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue, #4d8dff);
+  outline-offset: 4px;
+}
+
+.search-overlay[aria-hidden="true"] {
+  pointer-events: none;
+}
+
+.split-mode-panel[hidden] {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Split can grow vertically when AI-ERP rows are added.
+   The original tool card uses a fixed viewport-based height, which is great for
+   compact pages but causes long receipt tables to spill past the card/footer. */
+.tool-panel.split-tool {
+  height: auto;
+  min-height: min(610px, calc(100vh - 275px));
+  align-items: start;
+}
+
+.split-tool .tool-copy {
+  align-self: center;
+}
+
+.split-tool .split-mode-card,
+.split-tool .split-mode-panel,
+.split-tool .ai-erp-table-wrap {
+  min-width: 0;
+}
+
+.split-tool .split-mode-card {
+  align-self: start;
+}
+
+.split-tool .ai-erp-table-wrap {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+.split-tool .ai-erp-table {
+  margin: 0;
+}
+
+.split-frame {
+  min-height: 100vh;
+  padding-bottom: clamp(32px, 8vh, 96px);
+}
+
+@media (max-width: 960px) {
+  .split-tool .tool-copy {
+    align-self: start;
+  }
+}
+
+
+/* Long split pages need to use regular document scrolling.
+   style.css intentionally locks most pages to a single viewport. AI-ERP can
+   create unlimited rows, so this page opts out of that viewport lock. */
+html.split-page-html,
+html.split-page-html body {
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+html.split-page-html .app-frame.split-frame {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+html.split-page-html .split-frame .tool-panel.split-tool {
+  flex: 0 0 auto;
+  height: auto;
+  min-height: 0;
+  margin-bottom: clamp(22px, 5vh, 60px);
+  overflow: visible;
+}
+
+html.split-page-html .split-frame .split-mode-card,
+html.split-page-html .split-frame .split-mode-panel,
+html.split-page-html .split-frame .ai-erp-table-wrap {
+  max-width: 100%;
+}
+
+html.split-page-html .split-frame .ai-erp-table-wrap {
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+html.split-page-html .split-frame .wave-footer {
+  position: static;
+  flex: 0 0 auto;
+  height: 74px;
+  margin: auto 0 12px;
+}
+
+html.split-page-html .split-frame .wave-footer img {
+  width: 58px;
+  height: 58px;
+}
+
+@media (max-width: 900px) {
+  html.split-page-html .split-frame .tool-panel.split-tool {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Split page should have exactly one useful vertical scrollbar: the page.
+   The table wrapper may scroll horizontally on small screens, but it should not
+   create a nested vertical scrollbar when AI-ERP rows are added. */
+html.split-page-html {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scrollbar-gutter: stable;
+}
+
+html.split-page-html body.split-page-body {
+  height: auto;
+  min-height: 100%;
+  overflow: visible !important;
+}
+
+html.split-page-html .app-frame.split-frame {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  overflow: visible !important;
+}
+
+html.split-page-html .split-frame .split-mode-card,
+html.split-page-html .split-frame .split-mode-panel {
+  height: auto;
+  max-height: none;
+  overflow: visible !important;
+}
+
+html.split-page-html .split-frame .ai-erp-table-wrap {
+  height: auto;
+  max-height: none;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}

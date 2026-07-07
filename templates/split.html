@@ -1,202 +1,118 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>split — sqrtl squad</title>
-  <meta name="description" content="a cute split calculator page for sqrtl squad.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
-</head>
-<body>
-  <main class="app-frame tool-frame">
-    <header class="topbar">
-      <a href="{{ url_for('home') }}" class="brand" aria-label="sqrtl squad home">
-        <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="">
-        <span>
-          <strong>squirtle</strong>
-          <strong>squad</strong>
-        </span>
-      </a>
+{% extends "base.html" %}
+{% set html_class = "split-page-html" %}
+{% set body_class = "split-page-body" %}
+{% set main_class = "tool-frame split-frame" %}
 
-      <nav class="nav-pill" aria-label="main navigation">
-        <a class="{{ 'active' if active_page == 'home' else '' }}" href="{{ url_for('home') }}">home</a>
-        <a class="{{ 'active' if active_page == 'gallery' else '' }}" href="{{ url_for('gallery') }}">gallery</a>
-        <a class="{{ 'active' if active_page == 'collections' else '' }}" href="{{ url_for('collections') }}">collections</a>
-        <div class="nav-dropdown">
-          <button class="nav-drop-button {{ 'active' if active_page == 'things' else '' }}" type="button" aria-expanded="false">
-            things <span>⌄</span>
-          </button>
-          <div class="nav-drop-menu">
-            <a href="{{ url_for('calendar_page') }}">calendar</a>
-            <a href="{{ url_for('split_page') }}">split</a>
-          </div>
-        </div>
-        <a class="{{ 'active' if active_page == 'about' else '' }}" href="{{ url_for('about') }}">about</a>
-      </nav>
+{% block title %}split — sqrtl squad{% endblock %}
+{% block description %}a cute split calculator page for sqrtl squad.{% endblock %}
 
-      <div class="top-actions">
-        <button class="circle-button theme-toggle-button" id="themeToggle" type="button" aria-label="toggle theme" title="toggle theme"><img id="themeToggleIcon" src="{{ url_for('static', filename='img/theme-sun.png') }}" alt="" aria-hidden="true"></button>
-        <button class="circle-button" id="searchToggle" type="button" aria-label="open search" title="search">⌕</button>
-      </div>
-    </header>
+{% set sample_rows = [
+  {"name": "mario", "cost": "24.80"},
+  {"name": "ant", "cost": "24.80"},
+  {"name": "jus", "cost": "21.80"}
+] %}
 
-    <section class="tool-panel split-tool">
-      <div class="tool-copy">
-        <p class="tool-kicker">things</p>
-        <h1>split</h1>
-        <p>a tiny bill splitter for food runs, group activities, squad plans, and matching up with the receipt.</p>
-      </div>
+{% block content %}
+<section class="tool-panel split-tool" aria-labelledby="splitTitle">
+  <div class="tool-copy">
+    <p class="tool-kicker">things</p>
+    <h1 id="splitTitle">split</h1>
+    <p>a tiny bill splitter for food runs, group activities, squad plans, and matching up with the receipt.</p>
+  </div>
 
-      <div class="split-mode-card">
-        <div class="split-mode-toggle" role="tablist" aria-label="split mode">
-          <button class="split-mode-button active" id="splitEzTab" type="button" data-split-mode="ez" role="tab" aria-selected="true">ez</button>
-          <button class="split-mode-button" id="splitAiErpTab" type="button" data-split-mode="ai-erp" role="tab" aria-selected="false">ai-erp</button>
-        </div>
+  <div class="split-mode-card">
+    <div class="split-mode-toggle" role="tablist" aria-label="split mode">
+      <button class="split-mode-button active" id="splitEzTab" type="button" data-split-mode="ez" role="tab" aria-selected="true" aria-controls="splitEzPanel">ez</button>
+      <button class="split-mode-button" id="splitAiErpTab" type="button" data-split-mode="ai-erp" role="tab" aria-selected="false" aria-controls="splitAiErpPanel">ai-erp</button>
+    </div>
 
-        <div class="split-mode-panel active" id="splitEzPanel" data-split-panel="ez" role="tabpanel" aria-labelledby="splitEzTab">
-          <div class="split-card split-card-ez">
-            <label>
-              <span>total</span>
-              <input id="splitTotal" type="number" min="0" step="0.01" value="48.00">
-            </label>
-
-            <label>
-              <span>tip %</span>
-              <input id="splitTip" type="number" min="0" step="1" value="15">
-            </label>
-
-            <label>
-              <span>people</span>
-              <input id="splitPeople" type="number" min="1" step="1" value="4">
-            </label>
-
-            <div class="split-result">
-              <span>each person</span>
-              <strong id="splitEach">$13.80</strong>
-              <small id="splitDetails">$48.00 + $7.20 tip ÷ 4</small>
-            </div>
-          </div>
-        </div>
-
-        <div class="split-mode-panel" id="splitAiErpPanel" data-split-panel="ai-erp" role="tabpanel" aria-labelledby="splitAiErpTab">
-          <div class="ai-erp-toolbar">
-            <div>
-              <strong>receipt matcher</strong>
-              <small>enter item costs, set percentages in the headers, then match the receipt total</small>
-            </div>
-            <div class="ai-erp-actions">
-              <button class="mini-tool-button" id="addAiErpRow" type="button">+ row</button>
-            </div>
-          </div>
-
-          <div class="ai-erp-column-controls" aria-label="show or hide columns">
-            <label><input type="checkbox" data-ai-col-toggle="name" checked> name</label>
-            <label><input type="checkbox" data-ai-col-toggle="cost" checked> cost</label>
-            <label><input type="checkbox" data-ai-col-toggle="gst" checked> gst</label>
-            <label><input type="checkbox" data-ai-col-toggle="pst" checked> pst</label>
-            <label><input type="checkbox" data-ai-col-toggle="other" checked> other</label>
-            <label><input type="checkbox" data-ai-col-toggle="tip" checked> tip</label>
-            <label><input type="checkbox" data-ai-col-toggle="total" checked> total</label>
-          </div>
-
-          <div class="ai-erp-table-wrap">
-            <table class="ai-erp-table" aria-label="ai erp receipt rows">
-              <thead>
-                <tr>
-                  <th data-ai-col="name">name</th>
-                  <th data-ai-col="cost">cost</th>
-                  <th data-ai-col="gst">
-                    <span>gst</span>
-                    <label><input id="aiHeaderGst" type="number" min="0" step="0.01" value="5">%</label>
-                  </th>
-                  <th data-ai-col="pst">
-                    <span>pst</span>
-                    <label><input id="aiHeaderPst" type="number" min="0" step="0.01" value="0">%</label>
-                  </th>
-                  <th data-ai-col="other">
-                    <span>other</span>
-                    <label><input id="aiHeaderOther" type="number" min="0" step="0.01" value="0">%</label>
-                  </th>
-                  <th data-ai-col="tip">
-                    <span>tip</span>
-                    <label><input id="aiHeaderTip" type="number" min="0" step="0.01" value="10">%</label>
-                  </th>
-                  <th data-ai-col="total">total</th>
-                  <th class="ai-action-col"></th>
-                </tr>
-              </thead>
-              <tbody id="aiErpRows">
-                <tr>
-                  <td data-ai-col="name"><input class="ai-name" type="text" value="mario" aria-label="name"></td>
-                  <td data-ai-col="cost"><input class="ai-cost" type="number" min="0" step="0.01" value="24.80" aria-label="cost"></td>
-                  <td data-ai-col="gst"><span class="ai-gst-amount">$1.24</span></td>
-                  <td data-ai-col="pst"><span class="ai-pst-amount">$0.00</span></td>
-                  <td data-ai-col="other"><span class="ai-other-amount">$0.00</span></td>
-                  <td data-ai-col="tip"><span class="ai-tip-amount">$2.48</span></td>
-                  <td data-ai-col="total"><strong class="ai-row-total">$28.52</strong></td>
-                  <td class="ai-action-col"><button class="ai-row-remove" type="button" aria-label="remove row">×</button></td>
-                </tr>
-                <tr>
-                  <td data-ai-col="name"><input class="ai-name" type="text" value="ant" aria-label="name"></td>
-                  <td data-ai-col="cost"><input class="ai-cost" type="number" min="0" step="0.01" value="24.80" aria-label="cost"></td>
-                  <td data-ai-col="gst"><span class="ai-gst-amount">$1.24</span></td>
-                  <td data-ai-col="pst"><span class="ai-pst-amount">$0.00</span></td>
-                  <td data-ai-col="other"><span class="ai-other-amount">$0.00</span></td>
-                  <td data-ai-col="tip"><span class="ai-tip-amount">$2.48</span></td>
-                  <td data-ai-col="total"><strong class="ai-row-total">$28.52</strong></td>
-                  <td class="ai-action-col"><button class="ai-row-remove" type="button" aria-label="remove row">×</button></td>
-                </tr>
-                <tr>
-                  <td data-ai-col="name"><input class="ai-name" type="text" value="ame" aria-label="name"></td>
-                  <td data-ai-col="cost"><input class="ai-cost" type="number" min="0" step="0.01" value="21.80" aria-label="cost"></td>
-                  <td data-ai-col="gst"><span class="ai-gst-amount">$1.09</span></td>
-                  <td data-ai-col="pst"><span class="ai-pst-amount">$0.00</span></td>
-                  <td data-ai-col="other"><span class="ai-other-amount">$0.00</span></td>
-                  <td data-ai-col="tip"><span class="ai-tip-amount">$2.18</span></td>
-                  <td data-ai-col="total"><strong class="ai-row-total">$25.07</strong></td>
-                  <td class="ai-action-col"><button class="ai-row-remove" type="button" aria-label="remove row">×</button></td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td data-ai-col="name"></td>
-                  <td data-ai-col="cost"><strong id="aiCostTotal">$71.40</strong></td>
-                  <td data-ai-col="gst"><strong id="aiGstTotal">$3.57</strong></td>
-                  <td data-ai-col="pst"><strong id="aiPstTotal">$0.00</strong></td>
-                  <td data-ai-col="other"><strong id="aiOtherTotal">$0.00</strong></td>
-                  <td data-ai-col="tip"><strong id="aiTipTotal">$7.14</strong></td>
-                  <td data-ai-col="total"><strong id="aiErpGrandTotal">$82.11</strong></td>
-                  <td class="ai-action-col"></td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-
-          <div class="ai-erp-summary">
-            <span>grand total</span>
-            <strong id="aiErpGrandTotalLarge">$82.11</strong>
-          </div>
+    <div class="split-mode-panel active" id="splitEzPanel" data-split-panel="ez" role="tabpanel" aria-labelledby="splitEzTab">
+      <div class="split-card split-card-ez">
+        <label>
+          <span>total</span>
+          <input id="splitTotal" type="number" min="0" step="0.01" value="48.00" inputmode="decimal">
+        </label>
+        <label>
+          <span>tip %</span>
+          <input id="splitTip" type="number" min="0" step="1" value="15" inputmode="decimal">
+        </label>
+        <label>
+          <span>people</span>
+          <input id="splitPeople" type="number" min="1" step="1" value="4" inputmode="numeric">
+        </label>
+        <div class="split-result" aria-live="polite">
+          <span>each person</span>
+          <strong id="splitEach">$13.80</strong>
+          <small id="splitDetails">$48.00 + $7.20 tip ÷ 4</small>
         </div>
       </div>
-    </section>
+    </div>
 
-    <footer class="wave-footer" aria-label="footer">
-      <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="sqrtl icon">
-    </footer>
-  </main>
+    <div class="split-mode-panel" id="splitAiErpPanel" data-split-panel="ai-erp" role="tabpanel" aria-labelledby="splitAiErpTab" hidden>
+      <div class="ai-erp-toolbar">
+        <div>
+          <strong>receipt matcher</strong>
+          <small>enter item costs, set percentages in the headers, then match the receipt total</small>
+        </div>
+        <div class="ai-erp-actions">
+          <button class="mini-tool-button" id="addAiErpRow" type="button">+ row</button>
+        </div>
+      </div>
 
-  <div class="search-overlay" id="searchOverlay" aria-hidden="true">
-    <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
-      <button class="search-close" id="searchClose" type="button" aria-label="close search">×</button>
-      <p>search sqrtl</p>
-      <h2 id="searchTitle">search is coming soon.</h2>
-      <input type="search" placeholder="try photos, tags, friends..." disabled>
-      <small>when the gallery is ready, this will search photos, tags, collections, and shared items.</small>
+      <div class="ai-erp-column-controls" aria-label="show or hide columns">
+        {% for column in ["name", "cost", "gst", "pst", "other", "tip", "total"] %}
+        <label><input type="checkbox" data-ai-col-toggle="{{ column }}" checked> {{ column }}</label>
+        {% endfor %}
+      </div>
+
+      <div class="ai-erp-table-wrap">
+        <table class="ai-erp-table" aria-label="ai erp receipt rows">
+          <thead>
+            <tr>
+              <th data-ai-col="name" scope="col">name</th>
+              <th data-ai-col="cost" scope="col">cost</th>
+              <th data-ai-col="gst" scope="col"><span>gst</span><label><input id="aiHeaderGst" type="number" min="0" step="0.01" value="5" inputmode="decimal">%</label></th>
+              <th data-ai-col="pst" scope="col"><span>pst</span><label><input id="aiHeaderPst" type="number" min="0" step="0.01" value="0" inputmode="decimal">%</label></th>
+              <th data-ai-col="other" scope="col"><span>other</span><label><input id="aiHeaderOther" type="number" min="0" step="0.01" value="0" inputmode="decimal">%</label></th>
+              <th data-ai-col="tip" scope="col"><span>tip</span><label><input id="aiHeaderTip" type="number" min="0" step="0.01" value="10" inputmode="decimal">%</label></th>
+              <th data-ai-col="total" scope="col">total</th>
+              <th class="ai-action-col" scope="col"><span class="sr-only">actions</span></th>
+            </tr>
+          </thead>
+          <tbody id="aiErpRows">
+            {% for row in sample_rows %}
+            <tr>
+              <td data-ai-col="name"><input class="ai-name" type="text" value="{{ row.name }}" aria-label="name"></td>
+              <td data-ai-col="cost"><input class="ai-cost" type="number" min="0" step="0.01" value="{{ row.cost }}" aria-label="cost" inputmode="decimal"></td>
+              <td data-ai-col="gst"><span class="ai-gst-amount">$0.00</span></td>
+              <td data-ai-col="pst"><span class="ai-pst-amount">$0.00</span></td>
+              <td data-ai-col="other"><span class="ai-other-amount">$0.00</span></td>
+              <td data-ai-col="tip"><span class="ai-tip-amount">$0.00</span></td>
+              <td data-ai-col="total"><strong class="ai-row-total">$0.00</strong></td>
+              <td class="ai-action-col"><button class="ai-row-remove" type="button" aria-label="remove row">×</button></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td data-ai-col="name"></td>
+              <td data-ai-col="cost"><strong id="aiCostTotal">$0.00</strong></td>
+              <td data-ai-col="gst"><strong id="aiGstTotal">$0.00</strong></td>
+              <td data-ai-col="pst"><strong id="aiPstTotal">$0.00</strong></td>
+              <td data-ai-col="other"><strong id="aiOtherTotal">$0.00</strong></td>
+              <td data-ai-col="tip"><strong id="aiTipTotal">$0.00</strong></td>
+              <td data-ai-col="total"><strong id="aiErpGrandTotal">$0.00</strong></td>
+              <td class="ai-action-col"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="ai-erp-summary" aria-live="polite">
+        <span>grand total</span>
+        <strong id="aiErpGrandTotalLarge">$0.00</strong>
+      </div>
     </div>
   </div>
-</body>
-</html>
+</section>
+{% endblock %}
