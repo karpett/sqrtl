@@ -1,31 +1,21 @@
-# sqrtl things dropdown
+# sqrtl things hover and app layout fix
 
-this update replaces `shared` with a `things` dropdown.
+this patch improves the `things` dropdown and the calendar/split app pages.
 
 ## changed
 
-- top nav now has `things`
-- `things` dropdown includes:
-  - `calendar`
-  - `split`
-- added `/things/calendar`
-- added `/things/split`
-- `/shared` redirects to `/things/calendar`
-- calendar page has a cute monthly calendar
-- split page has a cute bill splitter calculator
+- `things` dropdown now stays open while moving your mouse from `things` to `calendar` or `split`
+- calendar/split app cards now take up the majority of the panel
+- removed the odd white radial gradient on app cards
+- improved dark mode readability for calendar and split pages
+- split calculator layout is wider and more app-like
 
 ## copy into your repo
 
-copy these into your current project:
+copy this file into your current project:
 
 ```text
-app.py
-templates/index.html
-templates/placeholder.html
-templates/calendar.html
-templates/split.html
 static/css/style.css
-static/js/app.js
 ```
 
 ## deploy
@@ -33,6 +23,6 @@ static/js/app.js
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "add things dropdown calendar and split"
+git commit -m "fix things dropdown and app layout"
 git push
 ```

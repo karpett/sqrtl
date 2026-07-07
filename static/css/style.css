@@ -1519,3 +1519,171 @@ span {
     font-size: 0.88rem;
   }
 }
+
+
+/* things dropdown hover + app layout fixes */
+.nav-dropdown {
+  padding-block: 14px;
+  margin-block: -14px;
+}
+
+.nav-drop-menu {
+  top: calc(100% - 2px);
+}
+
+.nav-dropdown::after {
+  content: "";
+  position: absolute;
+  left: -12px;
+  right: -12px;
+  top: 100%;
+  height: 18px;
+}
+
+.nav-dropdown:hover .nav-drop-menu,
+.nav-drop-menu:hover {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* make the actual app take most of the content area */
+.tool-panel {
+  grid-template-columns: minmax(210px, 0.48fr) minmax(520px, 1.52fr);
+  gap: clamp(28px, 4vw, 58px);
+}
+
+.calendar-card,
+.split-card {
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
+  background: var(--pink-panel);
+}
+
+.calendar-tool .calendar-card {
+  min-height: 390px;
+}
+
+.split-tool .split-card {
+  min-height: 390px;
+}
+
+/* remove the odd white radial spot from the app cards */
+.calendar-card,
+.split-card {
+  background: linear-gradient(180deg, rgba(255, 242, 250, 0.74), rgba(232, 249, 255, 0.66));
+}
+
+.deep-theme .calendar-card,
+.deep-theme .split-card {
+  background: linear-gradient(180deg, rgba(24, 56, 100, 0.92), rgba(13, 36, 72, 0.92));
+  color: var(--navy);
+}
+
+/* dark mode readability for apps */
+.deep-theme .calendar-top strong,
+.deep-theme .tool-copy h1,
+.deep-theme .split-result strong,
+.deep-theme .placeholder-copy h1,
+.deep-theme .placeholder-copy h2 {
+  color: var(--navy);
+}
+
+.deep-theme .calendar-top small,
+.deep-theme .tool-copy p,
+.deep-theme .split-card label span,
+.deep-theme .split-result span,
+.deep-theme .split-result small,
+.deep-theme .calendar-weekdays span {
+  color: var(--muted);
+}
+
+.deep-theme .calendar-day {
+  color: #eaf8ff;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.deep-theme .calendar-day.empty {
+  background: transparent;
+}
+
+.deep-theme .calendar-day.today {
+  color: #06172d;
+  background: linear-gradient(135deg, #9ee7ff, #91c8ff);
+}
+
+.deep-theme .mini-tool-button {
+  color: #eaf8ff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.deep-theme .split-card input {
+  color: #eaf8ff;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(167, 224, 255, 0.22);
+}
+
+.deep-theme .split-result {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.deep-theme .split-result strong {
+  color: #9ee7ff;
+}
+
+/* give the calendar more room inside its larger app area */
+.calendar-grid {
+  gap: 10px;
+}
+
+.calendar-day {
+  min-height: 48px;
+}
+
+/* split calculator should feel like the main content, not a side widget */
+.split-card {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+}
+
+.split-result {
+  grid-column: 1 / -1;
+  min-height: 145px;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 900px) {
+  .tool-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .calendar-card,
+  .split-card {
+    max-width: none;
+  }
+
+  .split-card {
+    grid-template-columns: 1fr;
+  }
+
+  .split-result {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .nav-dropdown {
+    padding-block: 8px;
+    margin-block: -8px;
+  }
+
+  .nav-drop-menu {
+    top: calc(100% - 1px);
+  }
+
+  .calendar-day {
+    min-height: 38px;
+  }
+}
