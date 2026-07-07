@@ -1,33 +1,28 @@
-# SQRTL Option C Final
+# SQRTL Option C Footer Fix
 
-This version applies the latest requested changes:
+This is the same Option C site update, with the placeholder-page card reduced so it no longer blocks the footer wave.
 
-- Uses the chosen icon based on Option C.
-- Removes the Trainer Blue/profile/login area completely.
-- Moves the night mode and search buttons to the far right.
-- Removes the homepage Join / Learn buttons to reduce crowding.
-- Shifts the main headline block upward to align more closely with the right-side menu.
-- Removes the footer side dots and replaces the center footer icon with the chosen Option C icon.
-- Adjusts the recent photo cards so they sit more cleanly in both light and dark mode.
+## Changed
+
+- Shortened the placeholder panel.
+- Reduced placeholder art/card sizing slightly.
+- Added short-screen CSS so the panel stays above the footer.
 
 ## Copy into your repo
 
-Copy these into your local project:
+At minimum, copy:
 
 ```text
-app.py
-templates/index.html
-templates/placeholder.html
 static/css/style.css
-static/js/app.js
-static/img/sqrtl-icon-c.png
 ```
+
+Or copy the full package if preferred.
 
 ## Deploy
 
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "Apply SQRTL option C icon and layout cleanup"
+git commit -m "Fix placeholder page footer overlap"
 git push
 ```
