@@ -15,7 +15,7 @@
   <main class="app-frame placeholder-frame">
     <header class="topbar">
       <a href="{{ url_for('home') }}" class="brand" aria-label="SQRTL Squad home">
-        <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="">
+        <img src="{{ url_for('static', filename='img/sqrtl-icon-c.png') }}" alt="">
         <span>
           <strong>SQUIRTLE</strong>
           <strong>SQUAD</strong>
@@ -33,20 +33,6 @@
       <div class="top-actions">
         <button class="circle-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">☼</button>
         <button class="circle-button" id="searchToggle" type="button" aria-label="Open search" title="Search">⌕</button>
-
-        <div class="profile-wrap">
-          <button class="profile-button" id="profileToggle" type="button" aria-label="Open profile menu" aria-expanded="false">
-            <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="">
-            <span>Trainer Blue</span>
-            <b>⌄</b>
-          </button>
-          <div class="profile-menu" id="profileMenu" aria-label="Profile menu">
-            <strong>Trainer Blue</strong>
-            <a href="{{ url_for('shared') }}">Invite friends</a>
-            <a href="{{ url_for('collections') }}">Collections</a>
-            <button type="button" disabled>Login coming later</button>
-          </div>
-        </div>
       </div>
     </header>
 
@@ -75,9 +61,7 @@
     </section>
 
     <footer class="wave-footer" aria-label="Footer">
-      <span class="bubble bubble-left"></span>
-      <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="Squirtle Squad mascot">
-      <span class="bubble bubble-right"></span>
+      <img src="{{ url_for('static', filename='img/sqrtl-icon-c.png') }}" alt="SQRTL icon">
     </footer>
   </main>
   <div class="search-overlay" id="searchOverlay" aria-hidden="true">

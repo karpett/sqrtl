@@ -15,7 +15,7 @@
   <main class="app-frame" id="home">
     <header class="topbar">
       <a href="{{ url_for('home') }}" class="brand" aria-label="SQRTL Squad home">
-        <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="">
+        <img src="{{ url_for('static', filename='img/sqrtl-icon-c.png') }}" alt="">
         <span>
           <strong>SQUIRTLE</strong>
           <strong>SQUAD</strong>
@@ -33,25 +33,11 @@
       <div class="top-actions">
         <button class="circle-button" id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">☼</button>
         <button class="circle-button" id="searchToggle" type="button" aria-label="Open search" title="Search">⌕</button>
-
-        <div class="profile-wrap">
-          <button class="profile-button" id="profileToggle" type="button" aria-label="Open profile menu" aria-expanded="false">
-            <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="">
-            <span>Trainer Blue</span>
-            <b>⌄</b>
-          </button>
-          <div class="profile-menu" id="profileMenu" aria-label="Profile menu">
-            <strong>Trainer Blue</strong>
-            <a href="{{ url_for('shared') }}">Invite friends</a>
-            <a href="{{ url_for('collections') }}">Collections</a>
-            <button type="button" disabled>Login coming later</button>
-          </div>
-        </div>
       </div>
     </header>
 
     <section class="hero-grid no-dock">
-      <div class="hero-copy">
+      <div class="hero-copy hero-copy-compact">
         <h1>
           <span>Share more.</span>
           <span><em>Squirtle</em></span>
@@ -60,10 +46,6 @@
         <p>
           Squirtle Squad is your cozy corner to host, organize, and share the things that matter with your favorite people.
         </p>
-        <div class="hero-buttons">
-          <a class="primary-button" href="{{ url_for('shared') }}">Join the Squad <span>→</span></a>
-          <a class="secondary-button" href="{{ url_for('about') }}">Learn More <span>⊙</span></a>
-        </div>
       </div>
 
       <div class="hero-art portal-art" aria-hidden="true">
@@ -112,7 +94,7 @@
       </div>
 
       <div class="photo-strip" aria-label="Recent photo cards">
-        <a class="photo-card" href="{{ url_for('gallery') }}">
+        <a class="photo-card offset-card" href="{{ url_for('gallery') }}">
           <img src="{{ url_for('static', filename='img/mini-beach.png') }}" alt="Squirtle on a beach at sunset">
           <span>▧</span>
         </a>
@@ -120,7 +102,7 @@
           <img src="{{ url_for('static', filename='img/mini-friends.png') }}" alt="Squirtle friends outdoors">
           <span>▧</span>
         </a>
-        <a class="photo-card" href="{{ url_for('gallery') }}">
+        <a class="photo-card offset-card" href="{{ url_for('gallery') }}">
           <img src="{{ url_for('static', filename='img/mini-float.png') }}" alt="Squirtle floating in water">
           <span>▷</span>
         </a>
@@ -132,9 +114,7 @@
     </section>
 
     <footer class="wave-footer" aria-label="Footer">
-      <span class="bubble bubble-left"></span>
-      <img src="{{ url_for('static', filename='img/cute-squirtle-icon.png') }}" alt="Squirtle Squad mascot">
-      <span class="bubble bubble-right"></span>
+      <img src="{{ url_for('static', filename='img/sqrtl-icon-c.png') }}" alt="SQRTL icon">
     </footer>
   </main>
   <div class="search-overlay" id="searchOverlay" aria-hidden="true">
