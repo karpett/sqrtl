@@ -1,20 +1,25 @@
-# sqrtl things scroll/footer + smaller calendar
+# sqrtl calendar birthdays
 
-this patch fixes the calendar/split page scrolling and slightly shrinks the calendar.
+this patch adds recurring birthdays to the calendar.
 
 ## changed
 
-- calendar is slightly smaller
-- calendar is less tall
-- calendar/split pages can scroll all the way to the footer
-- footer is placed naturally below the app content
-- reduced extra bottom spacing so the footer is reachable
+- birthdays appear every year as:
+  - bob day — jan 9
+  - ant day — jan 10
+  - mario day — apr 19
+  - jus day — may 29
+  - erp day — nov 29
+  - ame day — dec 17
+- birthday labels use a pink style
+- existing BC/Richmond holidays stay included
 
 ## copy into your repo
 
-copy this file into your current project:
+copy these files into your current project:
 
 ```text
+static/js/app.js
 static/css/style.css
 ```
 
@@ -23,6 +28,6 @@ static/css/style.css
 ```powershell
 cd C:\Users\Marcus\Documents\sqrtl-render-starter
 git add .
-git commit -m "fix things page scrolling and calendar size"
+git commit -m "add birthdays to calendar"
 git push
 ```

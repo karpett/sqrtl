@@ -1521,36 +1521,70 @@ span {
 }
 
 
-/* things dropdown hover + app layout fixes */
+/* things menu: hover-friendly dropdown */
 .nav-dropdown {
-  padding-block: 14px;
-  margin-block: -14px;
+  padding-block: 12px;
+  margin-block: -12px;
 }
 
 .nav-drop-menu {
   top: calc(100% - 2px);
 }
 
+/* invisible bridge so the menu does not close while moving mouse downward */
 .nav-dropdown::after {
   content: "";
   position: absolute;
-  left: -12px;
-  right: -12px;
+  left: -16px;
+  right: -16px;
   top: 100%;
-  height: 18px;
+  height: 20px;
 }
 
 .nav-dropdown:hover .nav-drop-menu,
+.nav-dropdown:focus-within .nav-drop-menu,
 .nav-drop-menu:hover {
   opacity: 1;
   pointer-events: auto;
   transform: translateX(-50%) translateY(0);
 }
 
-/* make the actual app take most of the content area */
+.nav-dropdown:hover .nav-drop-button,
+.nav-dropdown:focus-within .nav-drop-button {
+  background: rgba(199, 230, 255, 0.72);
+  color: #2875ff;
+  box-shadow: 0 12px 28px rgba(77, 141, 255, 0.12);
+}
+
+
+/* things apps: stacked layout with no outer box */
 .tool-panel {
-  grid-template-columns: minmax(210px, 0.48fr) minmax(520px, 1.52fr);
-  gap: clamp(28px, 4vw, 58px);
+  width: min(82vw, 1040px);
+  height: auto;
+  min-height: 0;
+  margin: 26px auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: stretch;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+.tool-copy {
+  width: min(820px, 100%);
+}
+
+.tool-copy h1 {
+  font-size: clamp(3.6rem, 7vw, 6.4rem);
+}
+
+.tool-copy p:not(.tool-kicker) {
+  width: min(720px, 100%);
+  margin-top: 14px;
 }
 
 .calendar-card,
@@ -1558,44 +1592,31 @@ span {
   width: 100%;
   max-width: none;
   justify-self: stretch;
-  background: var(--pink-panel);
 }
 
-.calendar-tool .calendar-card {
-  min-height: 390px;
-}
-
-.split-tool .split-card {
-  min-height: 390px;
-}
-
-/* remove the odd white radial spot from the app cards */
+/* keep the actual app as the main cute card */
 .calendar-card,
 .split-card {
-  background: linear-gradient(180deg, rgba(255, 242, 250, 0.74), rgba(232, 249, 255, 0.66));
+  background: linear-gradient(180deg, rgba(255, 242, 250, 0.82), rgba(232, 249, 255, 0.72));
 }
 
 .deep-theme .calendar-card,
 .deep-theme .split-card {
   background: linear-gradient(180deg, rgba(24, 56, 100, 0.92), rgba(13, 36, 72, 0.92));
-  color: var(--navy);
 }
 
-/* dark mode readability for apps */
 .deep-theme .calendar-top strong,
 .deep-theme .tool-copy h1,
-.deep-theme .split-result strong,
-.deep-theme .placeholder-copy h1,
-.deep-theme .placeholder-copy h2 {
+.deep-theme .split-result strong {
   color: var(--navy);
 }
 
-.deep-theme .calendar-top small,
 .deep-theme .tool-copy p,
+.deep-theme .calendar-top small,
+.deep-theme .calendar-weekdays span,
 .deep-theme .split-card label span,
 .deep-theme .split-result span,
-.deep-theme .split-result small,
-.deep-theme .calendar-weekdays span {
+.deep-theme .split-result small {
   color: var(--muted);
 }
 
@@ -1613,11 +1634,6 @@ span {
   background: linear-gradient(135deg, #9ee7ff, #91c8ff);
 }
 
-.deep-theme .mini-tool-button {
-  color: #eaf8ff;
-  background: rgba(255, 255, 255, 0.14);
-}
-
 .deep-theme .split-card input {
   color: #eaf8ff;
   background: rgba(255, 255, 255, 0.12);
@@ -1632,278 +1648,697 @@ span {
   color: #9ee7ff;
 }
 
-/* give the calendar more room inside its larger app area */
-.calendar-grid {
-  gap: 10px;
-}
-
-.calendar-day {
-  min-height: 48px;
-}
-
-/* split calculator should feel like the main content, not a side widget */
-.split-card {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
-}
-
-.split-result {
-  grid-column: 1 / -1;
-  min-height: 145px;
-  display: grid;
-  place-items: center;
-}
-
 @media (max-width: 900px) {
   .tool-panel {
-    grid-template-columns: 1fr;
-  }
-
-  .calendar-card,
-  .split-card {
-    max-width: none;
-  }
-
-  .split-card {
-    grid-template-columns: 1fr;
-  }
-
-  .split-result {
-    grid-column: auto;
-  }
-}
-
-@media (max-width: 620px) {
-  .nav-dropdown {
-    padding-block: 8px;
-    margin-block: -8px;
-  }
-
-  .nav-drop-menu {
-    top: calc(100% - 1px);
-  }
-
-  .calendar-day {
-    min-height: 38px;
-  }
-}
-
-
-/* things pages: natural scrolling + vertical app layout */
-body:has(.tool-frame) {
-  overflow-y: auto;
-}
-
-.tool-frame {
-  height: auto;
-  min-height: calc(100vh - 36px);
-  overflow: visible;
-  padding-bottom: 112px;
-}
-
-.tool-frame .wave-footer {
-  position: relative;
-  left: auto;
-  right: auto;
-  bottom: auto;
-  margin: 36px auto 0;
-}
-
-.tool-panel {
-  width: min(88vw, 1180px);
-  height: auto;
-  min-height: 0;
-  margin: 22px auto 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 28px;
-  align-items: stretch;
-  padding: clamp(28px, 4.2vw, 56px);
-}
-
-.tool-copy {
-  width: min(900px, 100%);
-}
-
-.tool-copy h1 {
-  font-size: clamp(3.8rem, 8vw, 7.5rem);
-}
-
-.tool-copy p:not(.tool-kicker) {
-  width: min(760px, 100%);
-  margin-top: 16px;
-}
-
-.calendar-card,
-.split-card {
-  width: 100%;
-  max-width: none;
-  justify-self: stretch;
-}
-
-.calendar-tool .calendar-card,
-.split-tool .split-card {
-  min-height: 0;
-}
-
-.calendar-card {
-  padding: clamp(20px, 3.2vw, 34px);
-}
-
-.calendar-grid {
-  gap: clamp(7px, 1.1vw, 13px);
-}
-
-.calendar-day {
-  min-height: clamp(46px, 7.4vw, 82px);
-  font-size: clamp(0.95rem, 1.35vw, 1.2rem);
-}
-
-.split-card {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(16px, 2.4vw, 24px);
-  padding: clamp(22px, 3.2vw, 36px);
-}
-
-.split-result {
-  grid-column: 1 / -1;
-  min-height: 180px;
-}
-
-.split-card input {
-  height: 62px;
-  font-size: 1.05rem;
-}
-
-@media (max-width: 900px) {
-  .tool-frame {
-    padding-bottom: 80px;
-  }
-
-  .tool-panel {
-    width: min(92vw, 760px);
+    width: min(92vw, 720px);
     margin-top: 12px;
-  }
-
-  .split-card {
-    grid-template-columns: 1fr;
-  }
-
-  .split-result {
-    grid-column: auto;
+    padding: 0;
+    gap: 22px;
   }
 }
 
 @media (max-width: 620px) {
   .tool-panel {
     width: min(94vw, 560px);
-    padding: 22px;
-    gap: 22px;
+    gap: 18px;
   }
 
   .tool-copy h1 {
-    font-size: clamp(3.2rem, 18vw, 5.4rem);
-  }
-
-  .calendar-day {
-    min-height: 40px;
+    font-size: clamp(3.1rem, 17vw, 5rem);
   }
 }
 
 
-/* things pages: fix full-page scrolling and slightly smaller calendar */
-html:has(.tool-frame),
-body:has(.tool-frame) {
-  height: auto;
-  min-height: 100%;
-  overflow-y: auto;
+/* compact things apps so they stay above the footer */
+.tool-panel {
+  width: min(78vw, 980px);
+  margin-top: 10px;
+  gap: 14px;
 }
 
-body:has(.tool-frame) {
-  align-items: flex-start;
-  padding: 18px 0 0;
+.tool-copy h1 {
+  font-size: clamp(3rem, 5.7vw, 5.1rem);
+  line-height: 0.9;
 }
 
-body:has(.tool-frame) .app-frame {
-  height: auto;
-  min-height: calc(100vh - 36px);
-  overflow: visible;
+.tool-copy p:not(.tool-kicker) {
+  margin-top: 8px;
+  font-size: 0.98rem;
+  line-height: 1.45;
 }
 
-.tool-frame {
-  height: auto !important;
-  min-height: calc(100vh - 36px);
-  overflow: visible !important;
-  padding-bottom: 48px;
+.tool-kicker {
+  margin-bottom: 8px;
 }
 
+/* calendar: shorter card, smaller cells, less padding */
+.calendar-card {
+  padding: 18px 22px;
+}
+
+.calendar-top {
+  margin-bottom: 12px;
+}
+
+.calendar-top strong {
+  font-size: 1.18rem;
+}
+
+.calendar-top small {
+  font-size: 0.74rem;
+}
+
+.mini-tool-button {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  gap: 7px;
+}
+
+/* override square/tall cells so the whole calendar fits above the footer */
+.calendar-day {
+  aspect-ratio: auto !important;
+  height: clamp(34px, 5.4vh, 54px);
+  min-height: 0 !important;
+  border-radius: 13px;
+  font-size: 0.92rem;
+}
+
+/* split: keep it compact too */
+.split-card {
+  padding: 20px 22px;
+  gap: 12px;
+}
+
+.split-card input {
+  height: 46px;
+}
+
+.split-result {
+  min-height: 96px;
+  padding: 16px;
+}
+
+.split-result strong {
+  font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+}
+
+/* keep footer below the compact app visually */
 .tool-frame .wave-footer {
-  position: relative !important;
-  inset: auto !important;
-  width: min(180px, 48vw);
-  height: 54px;
-  margin: 32px auto 18px;
+  bottom: 4px;
 }
 
 .tool-frame .wave-footer img {
-  width: 62px;
-  height: 62px;
-  top: -28px;
+  width: 58px;
+  height: 58px;
 }
 
-/* calendar: a bit smaller and less tall */
-.calendar-tool .calendar-card {
-  width: min(100%, 940px);
-  justify-self: center;
-  padding: clamp(18px, 2.4vw, 28px);
-}
+/* shorter screens get a more compact layout */
+@media (max-height: 820px) and (min-width: 901px) {
+  .tool-panel {
+    margin-top: 2px;
+    gap: 10px;
+  }
 
-.calendar-tool .calendar-top {
-  margin-bottom: 14px;
-}
+  .tool-copy h1 {
+    font-size: clamp(2.7rem, 5.1vw, 4.5rem);
+  }
 
-.calendar-tool .calendar-grid {
-  gap: clamp(6px, 0.85vw, 10px);
-}
+  .tool-copy p:not(.tool-kicker) {
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
 
-.calendar-tool .calendar-day {
-  min-height: clamp(38px, 5.6vw, 64px);
-  font-size: clamp(0.9rem, 1.05vw, 1.08rem);
-  border-radius: 13px;
-}
+  .calendar-card {
+    padding: 14px 18px;
+  }
 
-/* split can stay wide, but leave enough page space for footer */
-.split-tool .split-card {
-  width: min(100%, 1040px);
-  justify-self: center;
+  .calendar-top {
+    margin-bottom: 8px;
+  }
+
+  .calendar-day {
+    height: clamp(30px, 4.8vh, 46px);
+    border-radius: 11px;
+    font-size: 0.86rem;
+  }
+
+  .calendar-weekdays,
+  .calendar-grid {
+    gap: 6px;
+  }
+
+  .split-card {
+    padding: 16px 18px;
+  }
+
+  .split-result {
+    min-height: 82px;
+  }
 }
 
 @media (max-width: 900px) {
-  body:has(.tool-frame) {
-    padding-top: 10px;
+  .tool-panel {
+    width: min(92vw, 680px);
+    margin-top: 8px;
   }
 
-  .tool-frame {
-    padding-bottom: 36px;
-  }
-
-  .tool-frame .wave-footer {
-    margin-bottom: 14px;
+  .calendar-day {
+    height: clamp(32px, 6.4vw, 48px);
   }
 }
 
 @media (max-width: 620px) {
-  .calendar-tool .calendar-card {
-    padding: 16px;
+  .tool-panel {
+    width: min(94vw, 540px);
+    gap: 12px;
   }
 
-  .calendar-tool .calendar-grid {
+  .calendar-card,
+  .split-card {
+    padding: 14px;
+  }
+
+  .calendar-weekdays,
+  .calendar-grid {
     gap: 5px;
   }
 
-  .calendar-tool .calendar-day {
-    min-height: 34px;
+  .calendar-day {
+    height: 32px;
     border-radius: 10px;
-    font-size: 0.84rem;
+    font-size: 0.8rem;
+  }
+}
+
+
+/* split page: ez / ai-erp modes */
+.split-mode-card {
+  width: 100%;
+  display: grid;
+  gap: 14px;
+}
+
+.split-mode-toggle {
+  width: fit-content;
+  display: flex;
+  gap: 8px;
+  padding: 7px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.54);
+  border: 1px solid rgba(255,255,255,0.7);
+  box-shadow: 0 12px 28px rgba(77,141,255,0.10);
+}
+
+.split-mode-button {
+  height: 42px;
+  min-width: 92px;
+  border: 0;
+  border-radius: 15px;
+  padding: 0 18px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  text-transform: lowercase;
+}
+
+.split-mode-button.active {
+  color: #2875ff;
+  background: rgba(199, 230, 255, 0.82);
+  box-shadow: 0 10px 22px rgba(77,141,255,0.13);
+}
+
+.split-mode-panel {
+  display: none;
+}
+
+.split-mode-panel.active {
+  display: block;
+}
+
+.split-card-ez {
+  width: 100%;
+}
+
+.ai-erp-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 18px 20px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(255, 242, 250, 0.82), rgba(232, 249, 255, 0.72));
+  border: 1px solid rgba(255,255,255,0.75);
+  box-shadow: 0 14px 30px rgba(77,141,255,0.10);
+}
+
+.ai-erp-toolbar strong,
+.ai-erp-summary strong {
+  display: block;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.ai-erp-toolbar small {
+  display: block;
+  color: var(--muted);
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.ai-erp-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.ai-erp-actions .mini-tool-button {
+  width: auto;
+  padding: 0 14px;
+  white-space: nowrap;
+}
+
+.ai-erp-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(255, 242, 250, 0.82), rgba(232, 249, 255, 0.72));
+  border: 1px solid rgba(255,255,255,0.75);
+  box-shadow: var(--shadow);
+}
+
+.ai-erp-table {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: separate;
+  border-spacing: 0;
+  padding: 12px;
+}
+
+.ai-erp-table th {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-align: left;
+  padding: 8px 8px 10px;
+}
+
+.ai-erp-table td {
+  padding: 6px;
+  vertical-align: middle;
+}
+
+.ai-erp-table input {
+  width: 100%;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0 10px;
+  background: rgba(255,255,255,0.72);
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 900;
+  outline: none;
+}
+
+.ai-erp-table input:focus {
+  border-color: rgba(77,141,255,0.55);
+  box-shadow: 0 0 0 4px rgba(77,141,255,0.12);
+}
+
+.ai-row-total {
+  display: inline-flex;
+  min-width: 92px;
+  height: 42px;
+  align-items: center;
+  color: var(--blue);
+  font-weight: 900;
+}
+
+.ai-row-remove {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.68);
+  color: var(--muted);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.ai-row-remove:hover {
+  color: #2875ff;
+  background: rgba(199, 230, 255, 0.72);
+}
+
+.ai-erp-summary {
+  margin-top: 12px;
+  padding: 18px 22px;
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255,255,255,0.66);
+  border: 1px solid rgba(255,255,255,0.74);
+  box-shadow: 0 14px 30px rgba(77,141,255,0.10);
+}
+
+.ai-erp-summary span {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.ai-erp-summary strong {
+  color: var(--blue);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+}
+
+#splitAiErpPanel.hide-percents .percent-col {
+  display: none;
+}
+
+.deep-theme .split-mode-toggle,
+.deep-theme .ai-erp-toolbar,
+.deep-theme .ai-erp-table-wrap {
+  background: linear-gradient(180deg, rgba(24, 56, 100, 0.92), rgba(13, 36, 72, 0.92));
+  border-color: rgba(167, 224, 255, 0.18);
+}
+
+.deep-theme .split-mode-button {
+  color: var(--muted);
+}
+
+.deep-theme .split-mode-button.active {
+  color: #06172d;
+  background: linear-gradient(135deg, #9ee7ff, #91c8ff);
+}
+
+.deep-theme .ai-erp-toolbar strong,
+.deep-theme .ai-erp-summary strong {
+  color: #9ee7ff;
+}
+
+.deep-theme .ai-erp-toolbar small,
+.deep-theme .ai-erp-table th,
+.deep-theme .ai-erp-summary span {
+  color: var(--muted);
+}
+
+.deep-theme .ai-erp-table input {
+  color: #eaf8ff;
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(167, 224, 255, 0.22);
+}
+
+.deep-theme .ai-row-remove,
+.deep-theme .ai-erp-summary {
+  background: rgba(255,255,255,0.12);
+}
+
+@media (max-width: 720px) {
+  .split-mode-toggle {
+    width: 100%;
+  }
+
+  .split-mode-button {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ai-erp-toolbar,
+  .ai-erp-summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .ai-erp-actions {
+    justify-content: flex-start;
+  }
+}
+
+
+/* ai-erp receipt table like a receipt spreadsheet */
+.ai-erp-column-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 0 0 12px;
+  padding: 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.54);
+  border: 1px solid rgba(255,255,255,0.72);
+}
+
+.ai-erp-column-controls label {
+  height: 34px;
+  padding: 0 10px;
+  border-radius: 12px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--muted);
+  background: rgba(255,255,255,0.42);
+  font-size: 0.82rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.ai-erp-column-controls input {
+  accent-color: #5b96ff;
+}
+
+.ai-erp-table {
+  min-width: 760px;
+}
+
+.ai-erp-table th {
+  vertical-align: bottom;
+}
+
+.ai-erp-table th span {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.ai-erp-table th label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.ai-erp-table th input {
+  width: 58px;
+  height: 30px;
+  padding: 0 7px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+}
+
+.ai-erp-table td,
+.ai-erp-table th {
+  border-bottom: 1px solid rgba(111, 142, 179, 0.13);
+}
+
+.ai-erp-table tbody tr:last-child td {
+  border-bottom-color: rgba(111, 142, 179, 0.22);
+}
+
+.ai-erp-table tfoot td {
+  padding: 10px 6px;
+  border-top: 2px solid rgba(12, 42, 84, 0.18);
+  border-bottom: 0;
+}
+
+.ai-erp-table tfoot strong {
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.ai-erp-table td span,
+.ai-erp-table td strong {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.ai-erp-table .ai-row-total {
+  color: var(--blue);
+}
+
+.ai-col-hidden {
+  display: none !important;
+}
+
+.ai-erp-summary {
+  display: none;
+}
+
+.deep-theme .ai-erp-column-controls {
+  background: rgba(255,255,255,0.10);
+  border-color: rgba(167, 224, 255, 0.18);
+}
+
+.deep-theme .ai-erp-column-controls label {
+  color: var(--muted);
+  background: rgba(255,255,255,0.10);
+}
+
+.deep-theme .ai-erp-table td,
+.deep-theme .ai-erp-table th {
+  border-bottom-color: rgba(167, 224, 255, 0.13);
+}
+
+.deep-theme .ai-erp-table tfoot td {
+  border-top-color: rgba(167, 224, 255, 0.25);
+}
+
+.deep-theme .ai-erp-table td span,
+.deep-theme .ai-erp-table td strong,
+.deep-theme .ai-erp-table tfoot strong {
+  color: #eaf8ff;
+}
+
+.deep-theme .ai-erp-table .ai-row-total {
+  color: #9ee7ff;
+}
+
+
+/* calendar: bc/richmond holiday labels */
+.calendar-day {
+  position: relative;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  padding: 6px;
+  text-align: center;
+}
+
+.calendar-day-number {
+  line-height: 1;
+  font-weight: 900;
+}
+
+.calendar-day.has-holiday {
+  background: rgba(255, 247, 215, 0.92);
+  box-shadow: inset 0 0 0 2px rgba(255, 204, 105, 0.32);
+}
+
+.calendar-day.today.has-holiday {
+  background: linear-gradient(135deg, #5b96ff, #75d4ff);
+}
+
+.calendar-holiday-list {
+  width: 100%;
+  display: grid;
+  gap: 2px;
+}
+
+.calendar-holiday {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #9b6b00;
+  font-size: clamp(0.48rem, 0.72vw, 0.68rem);
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.calendar-holiday.observed {
+  color: #2875ff;
+}
+
+.calendar-day.today .calendar-holiday,
+.calendar-day.today .calendar-holiday.observed {
+  color: #ffffff;
+}
+
+.deep-theme .calendar-day.has-holiday {
+  background: rgba(255, 213, 109, 0.20);
+  box-shadow: inset 0 0 0 2px rgba(255, 213, 109, 0.22);
+}
+
+.deep-theme .calendar-holiday {
+  color: #ffe3a1;
+}
+
+.deep-theme .calendar-holiday.observed {
+  color: #9ee7ff;
+}
+
+@media (max-height: 820px) and (min-width: 901px) {
+  .calendar-day {
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .calendar-holiday {
+    font-size: 0.48rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .calendar-holiday {
+    display: none;
+  }
+
+  .calendar-day.has-holiday::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #ffbc42;
+  }
+
+  .calendar-day.has-holiday.today::after {
+    background: #ffffff;
+  }
+}
+
+
+/* calendar: recurring birthday labels */
+.calendar-holiday.birthday {
+  color: #d94f9b;
+}
+
+.calendar-day.has-holiday:has(.calendar-holiday.birthday) {
+  background: rgba(255, 232, 246, 0.94);
+  box-shadow: inset 0 0 0 2px rgba(255, 148, 206, 0.28);
+}
+
+.calendar-day.today .calendar-holiday.birthday {
+  color: #ffffff;
+}
+
+.deep-theme .calendar-holiday.birthday {
+  color: #ffaddd;
+}
+
+.deep-theme .calendar-day.has-holiday:has(.calendar-holiday.birthday) {
+  background: rgba(255, 148, 206, 0.18);
+  box-shadow: inset 0 0 0 2px rgba(255, 148, 206, 0.20);
+}
+
+@media (max-width: 620px) {
+  .calendar-day.has-holiday:has(.calendar-holiday.birthday)::after {
+    background: #ff7ac3;
   }
 }
