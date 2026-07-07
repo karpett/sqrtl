@@ -1687,3 +1687,125 @@ span {
     min-height: 38px;
   }
 }
+
+
+/* things pages: natural scrolling + vertical app layout */
+body:has(.tool-frame) {
+  overflow-y: auto;
+}
+
+.tool-frame {
+  height: auto;
+  min-height: calc(100vh - 36px);
+  overflow: visible;
+  padding-bottom: 112px;
+}
+
+.tool-frame .wave-footer {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  margin: 36px auto 0;
+}
+
+.tool-panel {
+  width: min(88vw, 1180px);
+  height: auto;
+  min-height: 0;
+  margin: 22px auto 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: stretch;
+  padding: clamp(28px, 4.2vw, 56px);
+}
+
+.tool-copy {
+  width: min(900px, 100%);
+}
+
+.tool-copy h1 {
+  font-size: clamp(3.8rem, 8vw, 7.5rem);
+}
+
+.tool-copy p:not(.tool-kicker) {
+  width: min(760px, 100%);
+  margin-top: 16px;
+}
+
+.calendar-card,
+.split-card {
+  width: 100%;
+  max-width: none;
+  justify-self: stretch;
+}
+
+.calendar-tool .calendar-card,
+.split-tool .split-card {
+  min-height: 0;
+}
+
+.calendar-card {
+  padding: clamp(20px, 3.2vw, 34px);
+}
+
+.calendar-grid {
+  gap: clamp(7px, 1.1vw, 13px);
+}
+
+.calendar-day {
+  min-height: clamp(46px, 7.4vw, 82px);
+  font-size: clamp(0.95rem, 1.35vw, 1.2rem);
+}
+
+.split-card {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 24px);
+  padding: clamp(22px, 3.2vw, 36px);
+}
+
+.split-result {
+  grid-column: 1 / -1;
+  min-height: 180px;
+}
+
+.split-card input {
+  height: 62px;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 900px) {
+  .tool-frame {
+    padding-bottom: 80px;
+  }
+
+  .tool-panel {
+    width: min(92vw, 760px);
+    margin-top: 12px;
+  }
+
+  .split-card {
+    grid-template-columns: 1fr;
+  }
+
+  .split-result {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .tool-panel {
+    width: min(94vw, 560px);
+    padding: 22px;
+    gap: 22px;
+  }
+
+  .tool-copy h1 {
+    font-size: clamp(3.2rem, 18vw, 5.4rem);
+  }
+
+  .calendar-day {
+    min-height: 40px;
+  }
+}
