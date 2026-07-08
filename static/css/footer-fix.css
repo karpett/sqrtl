@@ -1,0 +1,49 @@
+/*
+  Footer visibility fix for the standard sqrtl pages.
+
+  The original theme locks most pages to a hidden 100vh viewport, while the
+  refactor footer rules make the mascot footer taller and push the icon lower.
+  Split/calendar opt into their own long-page footer behavior, so this file only
+  adjusts the normal pages that use the shared base template.
+*/
+
+html:not(.split-page-html):not(.calendar-page-html),
+html:not(.split-page-html):not(.calendar-page-html) body:not(.split-page-body):not(.calendar-page-body) {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+}
+
+html:not(.split-page-html):not(.calendar-page-html) .app-frame:not(.tool-frame):not(.split-frame):not(.calendar-frame) {
+  width: 100% !important;
+  height: auto !important;
+  min-height: max(100dvh, 680px) !important;
+  overflow: hidden !important;
+  padding-bottom: clamp(104px, 13vh, 148px) !important;
+}
+
+html:not(.split-page-html):not(.calendar-page-html) .app-frame:not(.tool-frame):not(.split-frame):not(.calendar-frame) .wave-footer {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: clamp(104px, 13vh, 144px) !important;
+  min-height: 104px !important;
+  margin: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: visible !important;
+  pointer-events: none !important;
+}
+
+html:not(.split-page-html):not(.calendar-page-html) .app-frame:not(.tool-frame):not(.split-frame):not(.calendar-frame) .wave-footer > img {
+  width: clamp(58px, 6.2vh, 68px) !important;
+  height: clamp(58px, 6.2vh, 68px) !important;
+  transform: translateY(clamp(8px, 2vh, 22px)) !important;
+}
+
+@media (max-width: 900px) {
+  html:not(.split-page-html):not(.calendar-page-html) .app-frame:not(.tool-frame):not(.split-frame):not(.calendar-frame) {
+    min-height: 100dvh !important;
+    padding-bottom: 128px !important;
+  }
+}
