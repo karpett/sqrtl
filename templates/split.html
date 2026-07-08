@@ -52,18 +52,18 @@
 
   .ai-erp-table {
     table-layout: fixed !important;
-    width: 100% !important;
-    min-width: 760px !important;
+    width: max(780px, 100%) !important;
+    min-width: max(780px, 100%) !important;
   }
 
-  .ai-erp-table col[data-ai-col="name"] { width: 11%; }
+  .ai-erp-table col[data-ai-col="name"] { width: 12%; }
   .ai-erp-table col[data-ai-col="cost"] { width: 12%; }
   .ai-erp-table col[data-ai-col="gst"] { width: 13%; }
   .ai-erp-table col[data-ai-col="pst"] { width: 13%; }
   .ai-erp-table col[data-ai-col="other"] { width: 15%; }
   .ai-erp-table col[data-ai-col="tip"] { width: 13%; }
   .ai-erp-table col[data-ai-col="total"] { width: 14%; }
-  .ai-erp-table col.ai-action-col { width: 5%; }
+  .ai-erp-table col.ai-action-col { width: 8%; }
 
   .ai-erp-table th,
   .ai-erp-table td {
@@ -73,11 +73,14 @@
   }
 
   .ai-erp-table thead th {
-    height: 3.15rem !important;
-    padding-top: 0.75rem !important;
-    padding-bottom: 0.75rem !important;
-    line-height: 1.1 !important;
+    height: auto !important;
+    padding: 0.9rem 0.55rem !important;
+    line-height: 1.2 !important;
     vertical-align: middle !important;
+  }
+
+  .ai-erp-table thead tr {
+    height: auto !important;
   }
 
   .ai-erp-table tfoot td {
@@ -329,10 +332,10 @@
             <tr>
               <th data-ai-col="name" scope="col">name</th>
               <th data-ai-col="cost" scope="col">cost</th>
-              <th data-ai-col="gst" scope="col"><span class="ai-fixed-rate" id="aiGstColumnTitle">gst (5%)</span></th>
-              <th data-ai-col="pst" scope="col"><span class="ai-fixed-rate" id="aiPstColumnTitle">pst (7%)</span></th>
-              <th data-ai-col="other" scope="col"><span class="ai-fixed-rate" id="aiOtherColumnTitle">other (0%)</span></th>
-              <th data-ai-col="tip" scope="col"><span class="ai-fixed-rate" id="aiTipColumnTitle">tip (10%)</span></th>
+              <th data-ai-col="gst" scope="col" id="aiGstColumnTitle">gst (5%)</th>
+              <th data-ai-col="pst" scope="col" id="aiPstColumnTitle">pst (7%)</th>
+              <th data-ai-col="other" scope="col" id="aiOtherColumnTitle">other (0%)</th>
+              <th data-ai-col="tip" scope="col" id="aiTipColumnTitle">tip (10%)</th>
               <th data-ai-col="total" scope="col">total</th>
               <th class="ai-action-col" scope="col"><span class="sr-only">actions</span></th>
             </tr>
