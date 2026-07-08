@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% set html_class = "split-page-html" %}
 {% set body_class = "split-page-body" %}
 {% set main_class = "tool-frame split-frame" %}
@@ -13,11 +14,223 @@
 ] %}
 
 {% block content %}
+<style>
+  .split-mode-header,
+  .tax-fact-widget {
+    overflow: visible !important;
+  }
+
+  .tax-fact-widget {
+    position: relative !important;
+    z-index: 20;
+  }
+
+  .tax-fact-bubble {
+    position: absolute !important;
+    top: 50% !important;
+    right: auto !important;
+    left: calc(100% + 0.75rem) !important;
+    transform: translateY(-50%) !important;
+    border-radius: 18px !important;
+    border-bottom-left-radius: 18px !important;
+    max-width: min(280px, calc(100vw - 6rem)) !important;
+    margin: 0 !important;
+  }
+
+  .tax-fact-bubble::before,
+  .tax-fact-bubble::after {
+    left: -0.42rem !important;
+    right: auto !important;
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) rotate(45deg) !important;
+  }
+
+  .ai-erp-table-wrap {
+    overflow-x: auto !important;
+  }
+
+  .ai-erp-table {
+    table-layout: fixed !important;
+    width: 100% !important;
+    min-width: 760px !important;
+  }
+
+  .ai-erp-table col[data-ai-col="name"] { width: 11%; }
+  .ai-erp-table col[data-ai-col="cost"] { width: 12%; }
+  .ai-erp-table col[data-ai-col="gst"] { width: 13%; }
+  .ai-erp-table col[data-ai-col="pst"] { width: 13%; }
+  .ai-erp-table col[data-ai-col="other"] { width: 15%; }
+  .ai-erp-table col[data-ai-col="tip"] { width: 13%; }
+  .ai-erp-table col[data-ai-col="total"] { width: 14%; }
+  .ai-erp-table col.ai-action-col { width: 5%; }
+
+  .ai-erp-table th,
+  .ai-erp-table td {
+    white-space: nowrap !important;
+    vertical-align: middle !important;
+    box-sizing: border-box !important;
+  }
+
+  .ai-erp-table thead th {
+    height: 3.15rem !important;
+    padding-top: 0.75rem !important;
+    padding-bottom: 0.75rem !important;
+    line-height: 1.1 !important;
+    vertical-align: middle !important;
+  }
+
+  .ai-erp-table tfoot td {
+    vertical-align: middle !important;
+  }
+
+  .split-tool input[type="number"]::-webkit-outer-spin-button,
+  .split-tool input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .split-tool input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .ai-erp-column-controls {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(92px, 1fr)) !important;
+    align-items: stretch !important;
+    gap: 0.75rem !important;
+    padding: 0.85rem 1rem !important;
+  }
+
+  .ai-col-control {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 0.45rem !important;
+    min-height: 4.6rem !important;
+    padding: 0.65rem 0.7rem !important;
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.55) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 12px 24px rgba(54, 130, 255, 0.08) !important;
+    box-sizing: border-box !important;
+  }
+
+  .ai-col-control-label,
+  .ai-rate-control,
+  .ai-fixed-rate,
+  .ai-fixed-chip {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.35rem !important;
+    white-space: nowrap !important;
+  }
+
+  .ai-col-control-label {
+    width: 100% !important;
+    min-height: 1.25rem !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  .ai-col-control-label input[type="checkbox"] {
+    width: 1rem !important;
+    height: 1rem !important;
+    margin: 0 !important;
+    accent-color: #77a8ff !important;
+  }
+
+  .ai-rate-control,
+  .ai-fixed-chip {
+    margin: 0 !important;
+    min-width: 4.85rem !important;
+    height: 2.1rem !important;
+    padding: 0.2rem 0.5rem !important;
+    border-radius: 999px !important;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(222, 242, 255, 0.86)) !important;
+    border: 1px solid rgba(174, 215, 255, 0.95) !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 8px 16px rgba(52, 121, 255, 0.10) !important;
+    color: #052f6f !important;
+    box-sizing: border-box !important;
+  }
+
+  .ai-rate-control:focus-within {
+    border-color: rgba(87, 143, 255, 0.95) !important;
+    box-shadow: 0 0 0 4px rgba(102, 170, 255, 0.18), 0 10px 18px rgba(52, 121, 255, 0.12) !important;
+  }
+
+  .ai-rate-control input {
+    flex: 0 0 2.9rem !important;
+    width: 2.9rem !important;
+    min-width: 2.9rem !important;
+    max-width: 2.9rem !important;
+    padding: 0 !important;
+    border: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: center !important;
+    font: inherit !important;
+    font-weight: 950 !important;
+    color: #05306f !important;
+    box-sizing: border-box !important;
+  }
+
+  .ai-rate-control span,
+  .ai-fixed-chip {
+    font-weight: 900 !important;
+    font-size: 0.86rem !important;
+  }
+
+  .ai-fixed-chip {
+    opacity: 0.72 !important;
+  }
+
+  .ai-erp-table .ai-fixed-rate {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    min-height: 1.35rem !important;
+    line-height: 1.1 !important;
+    vertical-align: middle !important;
+  }
+
+  .ai-erp-table .ai-name,
+  .ai-erp-table .ai-cost {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .ai-erp-table .ai-row-remove {
+    margin-inline: auto !important;
+  }
+
+  @media (max-width: 680px) {
+    .ai-erp-column-controls {
+      grid-template-columns: repeat(2, minmax(120px, 1fr)) !important;
+    }
+  }
+
+  .ai-erp-table [hidden] {
+    display: none !important;
+  }
+
+  .ai-erp-table .ai-name,
+  .ai-erp-table .ai-cost {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+</style>
 <section class="tool-panel split-tool" aria-labelledby="splitTitle">
   <div class="tool-copy">
     <p class="tool-kicker">things</p>
     <h1 id="splitTitle">split</h1>
-    <p>a tiny bill splitter for food runs, group activities, squad plans, and matching up with the receipt.</p>
+    <p>a tiny bill splitter for food runs, group activities, and squad plans.</p>
   </div>
 
   <div class="split-mode-card">
@@ -38,7 +251,6 @@
         >
           <img src="{{ url_for('static', filename='img/tax-fact-icon.png') }}" alt="" width="48" height="48" aria-hidden="true">
         </button>
-
         <div class="tax-fact-bubble" id="taxFactBubble" role="status" aria-live="polite" hidden>
           <p id="taxFactText">did you know, tap the helmet for a Canada tax fact.</p>
         </div>
@@ -51,14 +263,17 @@
           <span>total</span>
           <input id="splitTotal" type="number" min="0" step="0.01" value="48.00" inputmode="decimal">
         </label>
+
         <label>
           <span>tip %</span>
           <input id="splitTip" type="number" min="0" step="1" value="15" inputmode="decimal">
         </label>
+
         <label>
           <span>people</span>
           <input id="splitPeople" type="number" min="1" step="1" value="4" inputmode="numeric">
         </label>
+
         <div class="split-result" aria-live="polite">
           <span>each person</span>
           <strong id="splitEach">$13.80</strong>
@@ -71,7 +286,7 @@
       <div class="ai-erp-toolbar">
         <div>
           <strong>receipt matcher</strong>
-          <small>enter item costs, set percentages in the headers, then match the receipt total</small>
+          <small>enter item costs, set percentages above the table, then match the receipt total</small>
         </div>
         <div class="ai-erp-actions">
           <button class="mini-tool-button" id="addAiErpRow" type="button">+ row</button>
@@ -79,38 +294,61 @@
       </div>
 
       <div class="ai-erp-column-controls" aria-label="show or hide optional columns">
-        <span class="ai-erp-fixed-columns" aria-hidden="true">fixed: name, cost, total</span>
-        {% for column in ["gst", "pst", "other", "tip"] %}
-        <label><input type="checkbox" data-ai-col-toggle="{{ column }}" checked> {{ column }}</label>
-        {% endfor %}
+        <div class="ai-col-control">
+          <label class="ai-col-control-label"><input type="checkbox" data-ai-col-toggle="gst" checked> gst</label>
+          <input id="aiHeaderGst" type="hidden" value="5">
+          <span class="ai-fixed-chip">5% fixed</span>
+        </div>
+        <div class="ai-col-control">
+          <label class="ai-col-control-label"><input type="checkbox" data-ai-col-toggle="pst" checked> pst</label>
+          <label class="ai-rate-control" aria-label="pst percentage"><input id="aiHeaderPst" type="text" value="7" inputmode="decimal" autocomplete="off"><span>%</span></label>
+        </div>
+        <div class="ai-col-control">
+          <label class="ai-col-control-label"><input type="checkbox" data-ai-col-toggle="other"> other</label>
+          <label class="ai-rate-control" aria-label="other percentage"><input id="aiHeaderOther" type="text" value="0" inputmode="decimal" autocomplete="off"><span>%</span></label>
+        </div>
+        <div class="ai-col-control">
+          <label class="ai-col-control-label"><input type="checkbox" data-ai-col-toggle="tip" checked> tip</label>
+          <label class="ai-rate-control" aria-label="tip percentage"><input id="aiHeaderTip" type="text" value="10" inputmode="decimal" autocomplete="off"><span>%</span></label>
+        </div>
       </div>
 
       <div class="ai-erp-table-wrap">
         <table class="ai-erp-table" aria-label="ai erp receipt rows">
+          <colgroup>
+            <col data-ai-col="name">
+            <col data-ai-col="cost">
+            <col data-ai-col="gst">
+            <col data-ai-col="pst">
+            <col data-ai-col="other">
+            <col data-ai-col="tip">
+            <col data-ai-col="total">
+            <col class="ai-action-col">
+          </colgroup>
           <thead>
             <tr>
               <th data-ai-col="name" scope="col">name</th>
               <th data-ai-col="cost" scope="col">cost</th>
-              <th data-ai-col="gst" scope="col"><span>gst</span><label><input id="aiHeaderGst" type="number" min="0" step="0.01" value="5" inputmode="decimal">%</label></th>
-              <th data-ai-col="pst" scope="col"><span>pst</span><label><input id="aiHeaderPst" type="number" min="0" step="0.01" value="0" inputmode="decimal">%</label></th>
-              <th data-ai-col="other" scope="col"><span>other</span><label><input id="aiHeaderOther" type="number" min="0" step="0.01" value="0" inputmode="decimal">%</label></th>
-              <th data-ai-col="tip" scope="col"><span>tip</span><label><input id="aiHeaderTip" type="number" min="0" step="0.01" value="10" inputmode="decimal">%</label></th>
+              <th data-ai-col="gst" scope="col"><span class="ai-fixed-rate" id="aiGstColumnTitle">gst (5%)</span></th>
+              <th data-ai-col="pst" scope="col"><span class="ai-fixed-rate" id="aiPstColumnTitle">pst (7%)</span></th>
+              <th data-ai-col="other" scope="col"><span class="ai-fixed-rate" id="aiOtherColumnTitle">other (0%)</span></th>
+              <th data-ai-col="tip" scope="col"><span class="ai-fixed-rate" id="aiTipColumnTitle">tip (10%)</span></th>
               <th data-ai-col="total" scope="col">total</th>
               <th class="ai-action-col" scope="col"><span class="sr-only">actions</span></th>
             </tr>
           </thead>
           <tbody id="aiErpRows">
             {% for row in sample_rows %}
-            <tr>
-              <td data-ai-col="name"><input class="ai-name" type="text" value="{{ row.name }}" aria-label="name"></td>
-              <td data-ai-col="cost"><input class="ai-cost" type="number" min="0" step="0.01" value="{{ row.cost }}" aria-label="cost" inputmode="decimal"></td>
-              <td data-ai-col="gst"><span class="ai-gst-amount">$0.00</span></td>
-              <td data-ai-col="pst"><span class="ai-pst-amount">$0.00</span></td>
-              <td data-ai-col="other"><span class="ai-other-amount">$0.00</span></td>
-              <td data-ai-col="tip"><span class="ai-tip-amount">$0.00</span></td>
-              <td data-ai-col="total"><strong class="ai-row-total">$0.00</strong></td>
-              <td class="ai-action-col"><button class="ai-row-remove" type="button" aria-label="remove row">×</button></td>
-            </tr>
+              <tr>
+                <td data-ai-col="name"><input class="ai-name" type="text" value="{{ row.name }}" aria-label="name"></td>
+                <td data-ai-col="cost"><input class="ai-cost" type="number" min="0" step="0.01" value="{{ row.cost }}" aria-label="cost" inputmode="decimal"></td>
+                <td data-ai-col="gst"><span class="ai-gst-amount">$0.00</span></td>
+                <td data-ai-col="pst"><span class="ai-pst-amount">$0.00</span></td>
+                <td data-ai-col="other"><span class="ai-other-amount">$0.00</span></td>
+                <td data-ai-col="tip"><span class="ai-tip-amount">$0.00</span></td>
+                <td data-ai-col="total"><strong class="ai-row-total">$0.00</strong></td>
+                <td class="ai-action-col"><button class="ai-row-remove" type="button" aria-label="remove row">×</button></td>
+              </tr>
             {% endfor %}
           </tbody>
           <tfoot>
@@ -135,4 +373,146 @@
     </div>
   </div>
 </section>
+<script>
+  (() => {
+    "use strict";
+
+    const currency = new Intl.NumberFormat("en-CA", {
+      style: "currency",
+      currency: "CAD",
+    });
+    const money = (value) => currency.format(Number.isFinite(value) ? value : 0);
+    const clampNumber = (value, min = 0) => Math.max(min, Number(value) || 0);
+    const byId = (id) => document.getElementById(id);
+    const all = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
+
+    const splitColumnTotals = () => {
+      const rows = byId("aiErpRows");
+      if (!rows) return;
+
+      const totals = {
+        cost: byId("aiCostTotal"),
+        gst: byId("aiGstTotal"),
+        pst: byId("aiPstTotal"),
+        other: byId("aiOtherTotal"),
+        tip: byId("aiTipTotal"),
+        grand: byId("aiErpGrandTotal"),
+        large: byId("aiErpGrandTotalLarge"),
+      };
+
+      const rateInputs = {
+        gst: byId("aiHeaderGst"),
+        pst: byId("aiHeaderPst"),
+        other: byId("aiHeaderOther"),
+        tip: byId("aiHeaderTip"),
+      };
+
+      const optionalColumns = ["gst", "pst", "other", "tip"];
+      const setColumnVisibility = (column, visible) => {
+        all(`[data-ai-col="${column}"]`).forEach((cell) => {
+          cell.hidden = !visible;
+        });
+        const col = document.querySelector(`.ai-erp-table col[data-ai-col="${column}"]`);
+        if (col) col.style.display = visible ? "" : "none";
+      };
+      const syncColumnVisibility = () => {
+        optionalColumns.forEach((column) => {
+          const toggle = document.querySelector(`[data-ai-col-toggle="${column}"]`);
+          setColumnVisibility(column, !toggle || toggle.checked);
+        });
+      };
+      const writeText = (element, value) => {
+        if (element) element.textContent = money(value);
+      };
+      const isIncluded = (column) => {
+        const toggle = document.querySelector(`[data-ai-col-toggle="${column}"]`);
+        return !toggle || toggle.checked;
+      };
+      const readRates = () => ({
+        gst: clampNumber(rateInputs.gst?.value) / 100,
+        pst: clampNumber(rateInputs.pst?.value) / 100,
+        other: clampNumber(rateInputs.other?.value) / 100,
+        tip: clampNumber(rateInputs.tip?.value) / 100,
+      });
+
+      const formatPercent = (value) => {
+        const rate = clampNumber(value);
+        return Number.isInteger(rate) ? String(rate) : rate.toFixed(2).replace(/\.?0+$/, "");
+      };
+      const updateColumnTitles = () => {
+        const titles = {
+          gst: byId("aiGstColumnTitle"),
+          pst: byId("aiPstColumnTitle"),
+          other: byId("aiOtherColumnTitle"),
+          tip: byId("aiTipColumnTitle"),
+        };
+        if (titles.gst) titles.gst.textContent = `gst (${formatPercent(rateInputs.gst?.value)}%)`;
+        if (titles.pst) titles.pst.textContent = `pst (${formatPercent(rateInputs.pst?.value)}%)`;
+        if (titles.other) titles.other.textContent = `other (${formatPercent(rateInputs.other?.value)}%)`;
+        if (titles.tip) titles.tip.textContent = `tip (${formatPercent(rateInputs.tip?.value)}%)`;
+      };
+
+      const update = () => {
+        syncColumnVisibility();
+        updateColumnTitles();
+        const rates = readRates();
+        const included = Object.fromEntries(optionalColumns.map((column) => [column, isIncluded(column)]));
+        const sums = { cost: 0, gst: 0, pst: 0, other: 0, tip: 0, grand: 0 };
+
+        all("tr", rows).forEach((row) => {
+          const cost = clampNumber(row.querySelector(".ai-cost")?.value);
+          const values = {
+            gst: cost * rates.gst,
+            pst: cost * rates.pst,
+            other: cost * rates.other,
+            tip: cost * rates.tip,
+          };
+          const selectedExtras = optionalColumns.reduce(
+            (sum, column) => sum + (included[column] ? values[column] : 0),
+            0,
+          );
+          const rowTotal = cost + selectedExtras;
+
+          writeText(row.querySelector(".ai-gst-amount"), values.gst);
+          writeText(row.querySelector(".ai-pst-amount"), values.pst);
+          writeText(row.querySelector(".ai-other-amount"), values.other);
+          writeText(row.querySelector(".ai-tip-amount"), values.tip);
+          writeText(row.querySelector(".ai-row-total"), rowTotal);
+
+          sums.cost += cost;
+          optionalColumns.forEach((column) => {
+            sums[column] += included[column] ? values[column] : 0;
+          });
+          sums.grand += rowTotal;
+        });
+
+        writeText(totals.cost, sums.cost);
+        writeText(totals.gst, sums.gst);
+        writeText(totals.pst, sums.pst);
+        writeText(totals.other, sums.other);
+        writeText(totals.tip, sums.tip);
+        writeText(totals.grand, sums.grand);
+        writeText(totals.large, sums.grand);
+      };
+
+      const scheduleUpdate = () => window.requestAnimationFrame(update);
+
+      rows.addEventListener("input", scheduleUpdate);
+      rows.addEventListener("click", scheduleUpdate);
+      Object.values(rateInputs).forEach((input) => input?.addEventListener("input", scheduleUpdate));
+      all("[data-ai-col-toggle]").forEach((toggle) => toggle.addEventListener("change", scheduleUpdate));
+      byId("addAiErpRow")?.addEventListener("click", scheduleUpdate);
+
+      update();
+    };
+
+    const installAfterExistingSplitScript = () => window.setTimeout(splitColumnTotals, 0);
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", installAfterExistingSplitScript, { once: true });
+    } else {
+      installAfterExistingSplitScript();
+    }
+  })();
+</script>
 {% endblock %}

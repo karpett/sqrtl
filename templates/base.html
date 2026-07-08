@@ -1,78 +1,87 @@
 <!doctype html>
 <html lang="en" class="{{ html_class | default('') }}">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}sqrtl squad{% endblock %}</title>
-  <meta name="description" content="{% block description %}sqrtl squad is a cozy private space to host, organize, and share with friends.{% endblock %}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/refactor-additions.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/footer-fix.css') }}">
-  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>{% block title %}sqrtl squad{% endblock %}</title>
+ <meta name="description" content="{% block description %}sqrtl squad is a cozy private space to host, organize, and share with friends.{% endblock %}">
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+ <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/refactor-additions.css') }}">
+ <style>
+  /* Keep the full visual footer visible on standard pages.
+     The long tool pages already opt into their own footer/page-flow rules. */
+  html:not(.split-page-html):not(.calendar-page-html) .app-frame::after {
+   bottom: 0 !important;
+   height: clamp(104px, 13vh, 144px) !important;
+  }
+
+  html:not(.split-page-html):not(.calendar-page-html) .wave-footer {
+   bottom: 0 !important;
+   height: clamp(104px, 13vh, 144px) !important;
+   min-height: 104px !important;
+  }
+
+  html:not(.split-page-html):not(.calendar-page-html) .wave-footer > img {
+   transform: translateY(clamp(10px, 2.2vh, 22px)) !important;
+  }
+ </style>
+ <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
 </head>
 <body class="{{ body_class | default('') }}">
-  <a class="skip-link" href="#mainContent">skip to content</a>
-
-  <main class="app-frame {{ main_class | default('') }}" id="mainContent">
-    <header class="topbar">
-      <a href="{{ url_for('home') }}" class="brand" aria-label="sqrtl squad home">
-        <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="" width="48" height="48">
-        <span>
-          <strong>squirtle</strong>
-          <strong>squad</strong>
-        </span>
-      </a>
-
-      <nav class="nav-pill" aria-label="main navigation">
-        <a class="{{ 'active' if active_page == 'home' else '' }}" {{ 'aria-current=page' if active_page == 'home' else '' }} href="{{ url_for('home') }}">home</a>
-        <a class="{{ 'active' if active_page == 'gallery' else '' }}" {{ 'aria-current=page' if active_page == 'gallery' else '' }} href="{{ url_for('gallery') }}">gallery</a>
-        <a class="{{ 'active' if active_page == 'collections' else '' }}" {{ 'aria-current=page' if active_page == 'collections' else '' }} href="{{ url_for('collections') }}">collections</a>
-
-        <div class="nav-dropdown" data-dropdown>
-          <button
-            class="nav-drop-button {{ 'active' if active_page == 'things' else '' }}"
-            type="button"
-            aria-expanded="false"
-            aria-controls="thingsMenu"
-            aria-haspopup="true"
-          >
-            things <span aria-hidden="true">⌄</span>
-          </button>
-          <div class="nav-drop-menu" id="thingsMenu">
-            <a href="{{ url_for('calendar_page') }}">calendar</a>
-            <a href="{{ url_for('split_page') }}">split</a>
-          </div>
-        </div>
-
-        <a class="{{ 'active' if active_page == 'about' else '' }}" {{ 'aria-current=page' if active_page == 'about' else '' }} href="{{ url_for('about') }}">about</a>
-      </nav>
-
-      <div class="top-actions">
-        <button class="circle-button theme-toggle-button" id="themeToggle" type="button" aria-label="toggle theme" aria-pressed="false" title="toggle theme">
-          <img id="themeToggleIcon" src="{{ url_for('static', filename='img/theme-sun.png') }}" alt="" aria-hidden="true" width="28" height="28">
-        </button>
-        <button class="circle-button" id="searchToggle" type="button" aria-label="open search" title="search">⌕</button>
-      </div>
-    </header>
-
-    {% block content %}{% endblock %}
-
-    <footer class="wave-footer" aria-label="footer">
-      <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="sqrtl icon" width="64" height="64">
-    </footer>
-  </main>
-
-  <div class="search-overlay" id="searchOverlay" aria-hidden="true" hidden>
-    <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
-      <button class="search-close" id="searchClose" type="button" aria-label="close search">×</button>
-      <p>search sqrtl</p>
-      <h2 id="searchTitle">search is coming soon.</h2>
-      <input type="search" placeholder="try photos, tags, friends..." disabled>
-      <small>when the gallery is ready, this will search photos, tags, collections, and shared items.</small>
+ <a class="skip-link" href="#mainContent">skip to content</a>
+ <main class="app-frame {{ main_class | default('') }}" id="mainContent">
+  <header class="topbar">
+   <a href="{{ url_for('home') }}" class="brand" aria-label="sqrtl squad home">
+    <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="" width="48" height="48">
+    <span>
+     <strong>squirtle</strong>
+     <strong>squad</strong>
+    </span>
+   </a>
+   <nav class="nav-pill" aria-label="main navigation">
+    <a class="{{ 'active' if active_page == 'home' else '' }}" {{ 'aria-current=page' if active_page == 'home' else '' }} href="{{ url_for('home') }}">home</a>
+    <a class="{{ 'active' if active_page == 'gallery' else '' }}" {{ 'aria-current=page' if active_page == 'gallery' else '' }} href="{{ url_for('gallery') }}">gallery</a>
+    <a class="{{ 'active' if active_page == 'collections' else '' }}" {{ 'aria-current=page' if active_page == 'collections' else '' }} href="{{ url_for('collections') }}">collections</a>
+    <div class="nav-dropdown" data-dropdown>
+     <button
+      class="nav-drop-button {{ 'active' if active_page == 'things' else '' }}"
+      type="button"
+      aria-expanded="false"
+      aria-controls="thingsMenu"
+      aria-haspopup="true"
+     >
+      things <span aria-hidden="true">⌄</span>
+     </button>
+     <div class="nav-drop-menu" id="thingsMenu">
+      <a href="{{ url_for('calendar_page') }}">calendar</a>
+      <a href="{{ url_for('split_page') }}">split</a>
+     </div>
     </div>
+    <a class="{{ 'active' if active_page == 'about' else '' }}" {{ 'aria-current=page' if active_page == 'about' else '' }} href="{{ url_for('about') }}">about</a>
+   </nav>
+   <div class="top-actions">
+    <button class="circle-button theme-toggle-button" id="themeToggle" type="button" aria-label="toggle theme" aria-pressed="false" title="toggle theme">
+     <img id="themeToggleIcon" src="{{ url_for('static', filename='img/theme-sun.png') }}" alt="" aria-hidden="true" width="28" height="28">
+    </button>
+    <button class="circle-button" id="searchToggle" type="button" aria-label="open search" title="search">⌕</button>
+   </div>
+  </header>
+  {% block content %}{% endblock %}
+  <footer class="wave-footer" aria-label="footer">
+   <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="sqrtl icon" width="64" height="64">
+  </footer>
+ </main>
+ <div class="search-overlay" id="searchOverlay" aria-hidden="true" hidden>
+  <div class="search-card" role="dialog" aria-modal="true" aria-labelledby="searchTitle">
+   <button class="search-close" id="searchClose" type="button" aria-label="close search">×</button>
+   <p>search sqrtl</p>
+   <h2 id="searchTitle">search is coming soon.</h2>
+   <input type="search" placeholder="try photos, tags, friends..." disabled>
+   <small>when the gallery is ready, this will search photos, tags, collections, and shared items.</small>
   </div>
+ </div>
 </body>
 </html>
