@@ -21,9 +21,28 @@
   </div>
 
   <div class="split-mode-card">
-    <div class="split-mode-toggle" role="tablist" aria-label="split mode">
-      <button class="split-mode-button active" id="splitEzTab" type="button" data-split-mode="ez" role="tab" aria-selected="true" aria-controls="splitEzPanel">ez</button>
-      <button class="split-mode-button" id="splitAiErpTab" type="button" data-split-mode="ai-erp" role="tab" aria-selected="false" aria-controls="splitAiErpPanel">ai-erp</button>
+    <div class="split-mode-header">
+      <div class="split-mode-toggle" role="tablist" aria-label="split mode">
+        <button class="split-mode-button active" id="splitEzTab" type="button" data-split-mode="ez" role="tab" aria-selected="true" aria-controls="splitEzPanel">ez</button>
+        <button class="split-mode-button" id="splitAiErpTab" type="button" data-split-mode="ai-erp" role="tab" aria-selected="false" aria-controls="splitAiErpPanel">ai-erp</button>
+      </div>
+
+      <div class="tax-fact-widget" id="taxFactWidget" hidden>
+        <button
+          class="tax-fact-button"
+          id="taxFactButton"
+          type="button"
+          aria-label="show a Canada tax fact"
+          aria-expanded="false"
+          aria-controls="taxFactBubble"
+        >
+          <img src="{{ url_for('static', filename='img/tax-fact-icon.png') }}" alt="" width="48" height="48" aria-hidden="true">
+        </button>
+
+        <div class="tax-fact-bubble" id="taxFactBubble" role="status" aria-live="polite" hidden>
+          <p id="taxFactText">did you know, tap the helmet for a Canada tax fact.</p>
+        </div>
+      </div>
     </div>
 
     <div class="split-mode-panel active" id="splitEzPanel" data-split-panel="ez" role="tabpanel" aria-labelledby="splitEzTab">

@@ -26,6 +26,209 @@
   const byId = (id) => document.getElementById(id);
   const all = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
+  const CANADA_TAX_FACTS = [
+    "GST stands for Goods and Services Tax.",
+    "HST stands for Harmonized Sales Tax.",
+    "PST often means Provincial Sales Tax in western provinces.",
+    "QST stands for Quebec Sales Tax.",
+    "Canada's federal GST rate is 5%.",
+    "British Columbia usually shows GST and PST as separate receipt lines.",
+    "British Columbia's general PST rate is 7%.",
+    "Alberta has GST but no general provincial sales tax.",
+    "Yukon has GST but no general territorial sales tax.",
+    "Nunavut has GST but no general territorial sales tax.",
+    "Northwest Territories has GST but no general territorial sales tax.",
+    "Ontario uses HST instead of separate GST and PST.",
+    "Ontario's HST rate is 13%.",
+    "Nova Scotia's HST rate is 14%.",
+    "New Brunswick's HST rate is 15%.",
+    "Newfoundland and Labrador's HST rate is 15%.",
+    "Prince Edward Island's HST rate is 15%.",
+    "Saskatchewan has GST plus a separate PST.",
+    "Saskatchewan's general PST rate is 6%.",
+    "Manitoba has GST plus a separate retail sales tax.",
+    "Manitoba's general retail sales tax rate is 7%.",
+    "Quebec has GST plus QST.",
+    "Quebec's QST rate is 9.975%.",
+    "In Quebec, QST is calculated on the price before GST.",
+    "HST combines federal GST with a provincial sales tax portion.",
+    "GST applies in every province and territory.",
+    "A province with HST does not usually show a separate GST line.",
+    "A receipt in BC can show GST even when PST is zero.",
+    "A receipt in Alberta usually shows only GST for ordinary sales tax.",
+    "Canadian sales tax rates can depend on delivery destination.",
+    "For shipped goods, place-of-supply rules can change the tax rate.",
+    "A BC seller shipping to Ontario may charge Ontario HST.",
+    "Sales tax is often added at checkout in Canada.",
+    "Shelf prices in Canada often exclude GST, HST, PST, or QST.",
+    "Restaurant bills commonly show tax before the tip line.",
+    "Tips are usually calculated separately from government sales taxes.",
+    "GST launched in Canada in 1991.",
+    "The GST replaced the old federal manufacturers' sales tax.",
+    "The federal GST was once 7%.",
+    "The federal GST dropped to 6% in 2006.",
+    "The federal GST dropped to 5% in 2008.",
+    "British Columbia used HST for a short period before returning to PST.",
+    "BC returned from HST to separate GST and PST in 2013.",
+    "Alberta is unusual because it has no general provincial sales tax.",
+    "The territories are unusual because they have no general territorial sales tax.",
+    "HST rates are not identical across HST provinces.",
+    "Nova Scotia's HST rate decreased to 14% in 2025.",
+    "A business may need to register for GST/HST after passing the small-supplier threshold.",
+    "Small suppliers can sometimes avoid GST/HST registration until they exceed the threshold.",
+    "Input tax credits let many registrants recover GST/HST paid on business inputs.",
+    "Exempt supplies are different from zero-rated supplies.",
+    "Zero-rated supplies are taxable at 0% for GST/HST purposes.",
+    "Basic groceries are often zero-rated for GST/HST.",
+    "Many prescription drugs are zero-rated for GST/HST.",
+    "Some medical devices are zero-rated for GST/HST.",
+    "Residential rent is generally exempt from GST/HST.",
+    "Many health-care services are exempt from GST/HST.",
+    "Many educational services are exempt from GST/HST.",
+    "Many financial services are exempt from GST/HST.",
+    "Most property and services supplied by charities can be GST/HST exempt.",
+    "Used goods donated to charities can be GST/HST exempt when sold by the charity.",
+    "Businesses collect GST/HST on behalf of the government.",
+    "Collected GST/HST is not the business's revenue.",
+    "PST rules can differ sharply by province.",
+    "BC PST is separate from federal GST.",
+    "BC PST applies to many goods and some services.",
+    "BC PST can apply to software.",
+    "BC PST can apply to telecommunication services.",
+    "BC PST can apply to accommodation in specific situations.",
+    "Some BC goods are PST-exempt even when GST applies.",
+    "Children's clothing can receive special PST treatment in BC.",
+    "Bicycles and e-bikes can have special provincial sales tax rules.",
+    "Restaurant meals in BC commonly have GST but not general PST.",
+    "Alcohol in BC can have special tax treatment beyond regular GST/PST.",
+    "Tobacco products can carry taxes beyond ordinary sales tax.",
+    "Fuel in Canada can carry excise or carbon-related charges in addition to sales tax.",
+    "Airline tickets can include several taxes, fees, and charges.",
+    "Canada has an Air Travellers Security Charge.",
+    "Luxury vehicles and aircraft can be affected by Canada's luxury tax.",
+    "Certain boats can be affected by Canada's luxury tax.",
+    "Canada has excise duties on some alcohol products.",
+    "Canada has excise duties on tobacco products.",
+    "Cannabis products can include excise duties.",
+    "Canadian income tax is progressive.",
+    "Progressive tax means higher brackets apply only to higher slices of income.",
+    "Canada has federal income tax brackets.",
+    "Each province and territory also has its own income tax brackets.",
+    "Your province of residence on December 31 often determines provincial income tax.",
+    "Federal and provincial taxes are calculated separately on personal returns.",
+    "Non-refundable tax credits reduce tax payable, not taxable income.",
+    "Refundable tax credits can create a payment even when tax payable is zero.",
+    "The basic personal amount is a non-refundable credit.",
+    "Employment income usually has tax withheld at source.",
+    "Payroll tax deductions can include income tax, CPP, and EI.",
+    "CPP stands for Canada Pension Plan.",
+    "EI stands for Employment Insurance.",
+    "A Notice of Assessment summarizes CRA's assessment of a filed return.",
+    "A Notice of Reassessment updates an earlier tax assessment.",
+    "CRA's NETFILE system is used to file many personal returns online.",
+    "EFILE is used by many authorized tax preparers.",
+    "Most Canadian personal tax returns are due April 30.",
+    "Self-employed individuals often have a June 15 filing deadline.",
+    "A balance owing is generally due April 30 even for many self-employed filers.",
+    "Instalment payments can apply when not enough tax is withheld during the year.",
+    "Tax refunds are not bonuses; they are overpaid tax coming back.",
+    "Direct deposit usually makes CRA payments arrive faster.",
+    "CRA can pay interest on some late refunds.",
+    "CRA can charge interest on overdue balances.",
+    "Penalties can apply for repeated late filing.",
+    "Keeping receipts matters because CRA can ask for support later.",
+    "Electronic records can be acceptable if they are readable and complete.",
+    "Self-employed people can deduct reasonable business expenses.",
+    "Business-use-of-home expenses require a business connection to the home workspace.",
+    "Vehicle expenses often require a mileage log.",
+    "Capital cost allowance is Canada's tax depreciation system.",
+    "CCA stands for Capital Cost Allowance.",
+    "Some assets are grouped into CCA classes.",
+    "A business may choose not to claim full CCA in a year.",
+    "Losses can sometimes be carried to other years.",
+    "Capital gains are taxed differently from regular income.",
+    "Only part of a capital gain is generally included in taxable income.",
+    "Capital losses usually apply against capital gains, not employment income.",
+    "The principal residence exemption can reduce tax on a home sale.",
+    "Selling a principal residence still has reporting requirements.",
+    "Rental income must usually be reported on a tax return.",
+    "Short-term rentals can create income tax and sales tax questions.",
+    "RRSP stands for Registered Retirement Savings Plan.",
+    "RRSP contributions can reduce taxable income.",
+    "RRSP withdrawals are generally taxable income.",
+    "RRSP room is based partly on earned income from prior years.",
+    "Unused RRSP room can carry forward.",
+    "The first 60 days of a year can count for the previous year's RRSP deduction.",
+    "Overcontributing to an RRSP can trigger a monthly tax.",
+    "TFSA stands for Tax-Free Savings Account.",
+    "TFSA contributions are not tax deductible.",
+    "TFSA investment income is generally tax-free.",
+    "TFSA withdrawals are generally tax-free.",
+    "TFSA withdrawals usually create new contribution room the following year.",
+    "Overcontributing to a TFSA can trigger a monthly tax.",
+    "FHSA stands for First Home Savings Account.",
+    "FHSA contributions can be deductible within limits.",
+    "FHSA withdrawals can be tax-free when used for a qualifying home purchase.",
+    "RESP stands for Registered Education Savings Plan.",
+    "RESPs can receive government education savings grants.",
+    "RDSP stands for Registered Disability Savings Plan.",
+    "RDSPs can receive government grants and bonds for eligible beneficiaries.",
+    "Pension income splitting can affect tax for eligible couples.",
+    "Charitable donations can create donation tax credits.",
+    "Political contributions can create special tax credits.",
+    "Medical expenses can create tax credits when they exceed a threshold.",
+    "Tuition amounts can create non-refundable tax credits.",
+    "Unused tuition credits can sometimes be carried forward.",
+    "Student loan interest can create a federal tax credit.",
+    "Child care expenses are deductions, not credits, in many cases.",
+    "Moving expenses can be deductible in limited situations.",
+    "Union dues and professional dues can sometimes be deductible.",
+    "Employment expenses usually require employer certification.",
+    "The T2200 form supports some employee expense claims.",
+    "The GST/HST credit is paid tax-free to eligible individuals and families.",
+    "GST/HST credit eligibility is based partly on family net income.",
+    "The Canada Child Benefit is tax-free.",
+    "The Canada Child Benefit is income-tested.",
+    "The Canada Workers Benefit supports eligible lower-income workers.",
+    "The disability tax credit is a non-refundable credit.",
+    "DTC approval can unlock access to other programs.",
+    "Provincial credits can be delivered through the federal tax system.",
+    "Registered charities must meet CRA requirements to issue official donation receipts.",
+    "A donation receipt needs specific information to support a tax credit.",
+    "Gifts of publicly traded securities can have special donation tax treatment.",
+    "Volunteer time is not usually receipted as a charitable donation.",
+    "Tax software often asks for a province because rates differ across Canada.",
+    "Canada's tax year for individuals is usually the calendar year.",
+    "Corporations can have fiscal years that do not match the calendar year.",
+    "A corporation is a separate taxpayer from its shareholders.",
+    "Small Canadian-controlled private corporations can access a small business deduction.",
+    "CCPC stands for Canadian-controlled private corporation.",
+    "Dividends are taxed differently from salary.",
+    "GST/HST account numbers are connected to a business number.",
+    "A business number is often shortened to BN.",
+    "Payroll accounts, GST/HST accounts, and corporate tax accounts can share a BN root.",
+    "Sole proprietors report business income on their personal tax return.",
+    "Tipping out coworkers can make receipt math more interesting than tax math.",
+    "A receipt total can differ from menu math because of rounding.",
+    "Canada rounds cash payments to the nearest five cents when pennies are not used.",
+    "Electronic payments can still charge the exact cent amount.",
+    "Canada stopped distributing pennies in 2013.",
+    "Rounding cash totals happens after tax is calculated, not before each item.",
+    "Different items on the same receipt can have different tax treatments.",
+    "A grocery receipt can mix taxable, zero-rated, and exempt-looking items.",
+    "A restaurant receipt can be easier to split when taxes are separated by row.",
+    "Some coupons reduce the tax base; others can be treated differently.",
+    "Refunds can include reversing tax originally charged.",
+    "Gift cards are usually taxed when used, not when purchased.",
+    "Deposits can have special GST/HST timing rules.",
+    "Tax-inclusive pricing means the tax is already inside the displayed price.",
+    "Tax-exclusive pricing means tax is added on top of the displayed price.",
+    "Canadian receipts often show the seller's GST/HST registration number.",
+    "A valid tax invoice helps businesses support input tax credits.",
+    "Tax rules can change, so old receipts can be tiny history lessons.",
+    "Canada has both direct taxes like income tax and indirect taxes like sales tax."
+];
+
   function initTheme() {
     const button = byId("themeToggle");
     const icon = byId("themeToggleIcon");
@@ -295,6 +498,9 @@
   function initSplitModes() {
     const buttons = all("[data-split-mode]");
     const panels = all("[data-split-panel]");
+    const factWidget = byId("taxFactWidget");
+    const factBubble = byId("taxFactBubble");
+    const factButton = byId("taxFactButton");
     if (buttons.length === 0 || panels.length === 0) return;
 
     const setMode = (mode) => {
@@ -308,9 +514,58 @@
         panel.classList.toggle("active", active);
         panel.hidden = !active;
       });
+
+      if (!factWidget) return;
+
+      const showFacts = mode === "ai-erp";
+      factWidget.hidden = !showFacts;
+      if (!showFacts) {
+        if (factBubble) factBubble.hidden = true;
+        factButton?.setAttribute("aria-expanded", "false");
+      }
     };
 
     buttons.forEach((button) => button.addEventListener("click", () => setMode(button.dataset.splitMode)));
+    setMode(buttons.find((button) => button.classList.contains("active"))?.dataset.splitMode ?? "ez");
+  }
+
+  function initTaxFacts() {
+    const button = byId("taxFactButton");
+    const bubble = byId("taxFactBubble");
+    const text = byId("taxFactText");
+    if (!button || !bubble || !text) return;
+
+    let remaining = [];
+
+    const nextFact = () => {
+      if (remaining.length === 0) {
+        remaining = [...CANADA_TAX_FACTS];
+      }
+
+      const index = Math.floor(Math.random() * remaining.length);
+      const [fact] = remaining.splice(index, 1);
+      return `did you know, ${fact}`;
+    };
+
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      text.textContent = nextFact();
+      bubble.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+    });
+
+    document.addEventListener("click", (event) => {
+      if (bubble.hidden || event.target.closest(".tax-fact-widget")) return;
+      bubble.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || bubble.hidden) return;
+      bubble.hidden = true;
+      button.setAttribute("aria-expanded", "false");
+      button.focus();
+    });
   }
 
   function initAiErp() {
@@ -440,6 +695,7 @@
     initCalendar();
     initSimpleSplit();
     initSplitModes();
+    initTaxFacts();
     initAiErp();
   });
 })();

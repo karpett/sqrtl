@@ -325,3 +325,198 @@ html.calendar-page-html .calendar-frame .wave-footer img {
   color: var(--muted);
   background: rgba(255,255,255,0.08);
 }
+
+/* AI-ERP Canada tax facts. The widget only becomes visible when the ai-erp
+   tab is active, and the bubble overlays the UI instead of shifting the table. */
+.split-mode-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.split-mode-header .split-mode-toggle {
+  margin-bottom: 0;
+}
+
+.tax-fact-widget {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  z-index: 25;
+}
+
+.tax-fact-button {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 3px solid rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow:
+    0 12px 26px rgba(36, 60, 90, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.tax-fact-button:hover,
+.tax-fact-button:focus-visible,
+.tax-fact-button[aria-expanded="true"] {
+  transform: translateY(-1px) rotate(-2deg);
+  border-color: rgba(101, 174, 255, 0.82);
+  box-shadow:
+    0 16px 32px rgba(36, 60, 90, 0.24),
+    0 0 0 5px rgba(128, 203, 255, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+}
+
+.tax-fact-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.tax-fact-bubble {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  width: min(285px, 42vw);
+  padding: 13px 15px 12px;
+  border: 1px solid rgba(126, 173, 224, 0.34);
+  border-radius: 18px 18px 18px 8px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--navy, #0a254f);
+  box-shadow: 0 18px 38px rgba(36, 60, 90, 0.22);
+  transform: translateY(-50%);
+  backdrop-filter: blur(12px);
+}
+
+.tax-fact-bubble::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  border-left: 1px solid rgba(126, 173, 224, 0.34);
+  border-bottom: 1px solid rgba(126, 173, 224, 0.34);
+  background: inherit;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.tax-fact-bubble p {
+  margin: 0;
+  font-size: 0.94rem;
+  font-weight: 800;
+  line-height: 1.32;
+}
+
+.deep-theme .tax-fact-button {
+  border-color: rgba(158, 231, 255, 0.42);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.deep-theme .tax-fact-button:hover,
+.deep-theme .tax-fact-button:focus-visible,
+.deep-theme .tax-fact-button[aria-expanded="true"] {
+  border-color: rgba(158, 231, 255, 0.82);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.34),
+    0 0 0 5px rgba(158, 231, 255, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.deep-theme .tax-fact-bubble {
+  border-color: rgba(158, 231, 255, 0.24);
+  background: rgba(13, 28, 54, 0.94);
+  color: #eef8ff;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+}
+
+
+@media (max-width: 780px) {
+  .tax-fact-widget {
+    position: relative;
+  }
+
+  .tax-fact-bubble {
+    left: auto;
+    right: 0;
+    top: calc(100% + 10px);
+    width: min(300px, 82vw);
+    margin-top: 0;
+    transform: none;
+  }
+
+  .tax-fact-bubble::before {
+    display: none;
+  }
+}
+
+/* Footer icon layered into the visual footer.
+   The site footer is mostly created by the page background/wave at the very
+   bottom. Keep the mascot as an overlay in the lower-middle of that bottom
+   footer band, rather than letting it reserve its own stacked space above the
+   water. */
+.wave-footer {
+  z-index: 8 !important;
+  height: clamp(104px, 13vh, 144px) !important;
+  min-height: 104px !important;
+  bottom: 0 !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: visible !important;
+  pointer-events: none;
+  isolation: isolate;
+}
+
+.wave-footer > img {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  z-index: 3;
+  width: clamp(58px, 6.4vh, 68px);
+  height: clamp(58px, 6.4vh, 68px);
+  margin: 0 !important;
+  transform: translateY(clamp(26px, 4vh, 46px)) !important;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 18px rgba(36, 60, 90, 0.20));
+}
+
+/* Long document pages still need the footer in normal flow, but the mascot
+   should be centered inside the bottom footer band. Removing bottom padding is
+   what stops the icon from sitting in the white area above the footer. */
+html.split-page-html .app-frame.split-frame,
+html.calendar-page-html .app-frame.calendar-frame {
+  padding-bottom: 0 !important;
+}
+
+html.split-page-html .split-frame .wave-footer,
+html.calendar-page-html .calendar-frame .wave-footer {
+  position: relative !important;
+  flex: 0 0 auto;
+  height: clamp(118px, 14vh, 152px) !important;
+  min-height: 118px !important;
+  margin: auto 0 0 !important;
+  padding: 0 !important;
+}
+
+html.split-page-html .split-frame .wave-footer > img,
+html.calendar-page-html .calendar-frame .wave-footer > img {
+  width: 64px;
+  height: 64px;
+}
+
+.deep-theme .wave-footer > img {
+  filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.32));
+}
