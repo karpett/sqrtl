@@ -10,31 +10,13 @@
  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
  <link rel="stylesheet" href="{{ url_for('static', filename='css/refactor-additions.css') }}">
- <style>
-  /* Keep the full visual footer visible on standard pages.
-     The long tool pages already opt into their own footer/page-flow rules. */
-  html:not(.split-page-html):not(.calendar-page-html) .app-frame::after {
-   bottom: 0 !important;
-   height: clamp(104px, 13vh, 144px) !important;
-  }
-
-  html:not(.split-page-html):not(.calendar-page-html) .wave-footer {
-   bottom: 0 !important;
-   height: clamp(104px, 13vh, 144px) !important;
-   min-height: 104px !important;
-  }
-
-  html:not(.split-page-html):not(.calendar-page-html) .wave-footer > img {
-   transform: translateY(clamp(10px, 2.2vh, 22px)) !important;
-  }
- </style>
  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
 </head>
 <body class="{{ body_class | default('') }}">
  <a class="skip-link" href="#mainContent">skip to content</a>
  <main class="app-frame {{ main_class | default('') }}" id="mainContent">
   <header class="topbar">
-   <a href="{{ url_for('home') }}" class="brand" aria-label="sqrtl squad home">
+   <a href="{{ url_for('home_page') }}" class="brand" aria-label="sqrtl squad home">
     <img src="{{ url_for('static', filename='img/cool-squirtle-icon.png') }}" alt="" width="48" height="48">
     <span>
      <strong>squirtle</strong>
@@ -42,7 +24,7 @@
     </span>
    </a>
    <nav class="nav-pill" aria-label="main navigation">
-    <a class="{{ 'active' if active_page == 'home' else '' }}" {{ 'aria-current=page' if active_page == 'home' else '' }} href="{{ url_for('home') }}">home</a>
+    <a class="{{ 'active' if active_page == 'home' else '' }}" {{ 'aria-current=page' if active_page == 'home' else '' }} href="{{ url_for('home_page') }}">home</a>
     <a class="{{ 'active' if active_page == 'gallery' else '' }}" {{ 'aria-current=page' if active_page == 'gallery' else '' }} href="{{ url_for('gallery') }}">gallery</a>
     <a class="{{ 'active' if active_page == 'collections' else '' }}" {{ 'aria-current=page' if active_page == 'collections' else '' }} href="{{ url_for('collections') }}">collections</a>
     <div class="nav-dropdown" data-dropdown>

@@ -1,35 +1,17 @@
-# sqrtl footer visibility fix
+# sqrtl squad
 
-This patch fixes the footer/icon being clipped on the standard pages, without changing the current split/calendar long-page footer behavior.
+A small Flask website for a cozy Squirtle Squad-themed friend space. The app has a landing page, placeholder gallery/collections/about pages, and two tools under **things**: a calendar and split calculator.
 
-## Apply
+## Run locally
 
-1. Unzip this package.
-2. Copy `apply_footer_fix.py` into the root of your local `sqrtl` repo.
-3. From the repo root, run:
-
-```powershell
-py apply_footer_fix.py
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows PowerShell: .\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+python -m flask --app app run --debug
 ```
 
-If `py` is not available, run:
-
-```powershell
-python apply_footer_fix.py
-```
-
-The script will:
-
-- create `static/css/footer-fix.css`
-- add a stylesheet link to `templates/base.html` after `refactor-additions.css`
-
-## Check locally
-
-```powershell
-python app.py
-```
-
-Then check:
+Open the local Flask URL, then check:
 
 - `/`
 - `/gallery`
@@ -38,20 +20,26 @@ Then check:
 - `/things/calendar`
 - `/things/split`
 
-## Push
+## Checks
 
-```powershell
-git status
-git diff
-git add templates/base.html static/css/footer-fix.css
-git commit -m "fix footer visibility on standard pages"
-git push
+```bash
+python -m py_compile app.py
+python -m pytest
+node --check static/js/app.js
 ```
 
-## Manual option
+`pytest` is only needed for local development tests; the production app dependencies are listed in `requirements.txt`.
 
-If you do not want to run the script, copy `footer-fix.css` into `static/css/footer-fix.css`, then add this line in `templates/base.html` after the `refactor-additions.css` stylesheet link:
+## Structure
 
-```html
-<link rel="stylesheet" href="{{ url_for('static', filename='css/footer-fix.css') }}">
+```text
+app.py                  Flask routes
+render.yaml             Render deploy config
+requirements.txt        Runtime Python dependencies
+static/css/style.css    Main visual design
+static/css/refactor-additions.css
+static/js/app.js        Theme, search, nav, calendar, and split logic
+static/img/             Images currently used by the site
+templates/              Jinja page templates
+tests/                  Route smoke tests
 ```

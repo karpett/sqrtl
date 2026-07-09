@@ -42,8 +42,8 @@ PLACEHOLDER_PAGES: dict[str, PlaceholderPage] = {
 app = Flask(__name__)
 
 
-@app.get("/")
-def home():
+@app.get("/", endpoint="home_page")
+def home_page():
     return render_template("index.html", active_page="home")
 
 

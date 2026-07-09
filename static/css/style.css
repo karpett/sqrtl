@@ -2023,10 +2023,6 @@ span {
   font-size: clamp(1.7rem, 3vw, 2.6rem);
 }
 
-#splitAiErpPanel.hide-percents .percent-col {
-  display: none;
-}
-
 .deep-theme .split-mode-toggle,
 .deep-theme .ai-erp-toolbar,
 .deep-theme .ai-erp-table-wrap {

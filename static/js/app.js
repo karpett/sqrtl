@@ -572,6 +572,7 @@
     const rows = byId("aiErpRows");
     if (!rows) return;
 
+    const optionalColumns = ["gst", "pst", "other", "tip"];
     const totals = {
       cost: byId("aiCostTotal"),
       gst: byId("aiGstTotal"),
@@ -589,6 +590,13 @@
       tip: byId("aiHeaderTip"),
     };
 
+    const columnTitles = {
+      gst: byId("aiGstColumnTitle"),
+      pst: byId("aiPstColumnTitle"),
+      other: byId("aiOtherColumnTitle"),
+      tip: byId("aiTipColumnTitle"),
+    };
+
     const readRates = () => ({
       gst: clampNumber(rateInputs.gst?.value) / 100,
       pst: clampNumber(rateInputs.pst?.value) / 100,
@@ -600,8 +608,43 @@
       if (element) element.textContent = money(value);
     };
 
+    const formatPercent = (value) => {
+      const rate = clampNumber(value);
+      return Number.isInteger(rate) ? String(rate) : rate.toFixed(2).replace(/\.?0+$/, "");
+    };
+
+    const updateColumnTitles = () => {
+      optionalColumns.forEach((column) => {
+        if (columnTitles[column]) {
+          columnTitles[column].textContent = `${column} (${formatPercent(rateInputs[column]?.value)}%)`;
+        }
+      });
+    };
+
+    const columnToggle = (column) => document.querySelector(`[data-ai-col-toggle="${column}"]`);
+    const isIncluded = (column) => columnToggle(column)?.checked ?? true;
+
+    const setColumnVisibility = (column, visible, scope = document) => {
+      all(`[data-ai-col="${column}"]`, scope).forEach((cell) => {
+        cell.hidden = !visible;
+      });
+
+      if (scope === document) {
+        const col = document.querySelector(`.ai-erp-table col[data-ai-col="${column}"]`);
+        if (col) col.style.display = visible ? "" : "none";
+      }
+    };
+
+    const applyColumnVisibility = (scope = document) => {
+      optionalColumns.forEach((column) => setColumnVisibility(column, isIncluded(column), scope));
+    };
+
     const update = () => {
+      applyColumnVisibility(document);
+      updateColumnTitles();
+
       const rates = readRates();
+      const included = Object.fromEntries(optionalColumns.map((column) => [column, isIncluded(column)]));
       const sums = { cost: 0, gst: 0, pst: 0, other: 0, tip: 0, grand: 0 };
 
       all("tr", rows).forEach((row) => {
@@ -612,20 +655,23 @@
           other: cost * rates.other,
           tip: cost * rates.tip,
         };
-        const total = cost + values.gst + values.pst + values.other + values.tip;
+        const selectedExtras = optionalColumns.reduce(
+          (sum, column) => sum + (included[column] ? values[column] : 0),
+          0,
+        );
+        const rowTotal = cost + selectedExtras;
 
         writeText(row.querySelector(".ai-gst-amount"), values.gst);
         writeText(row.querySelector(".ai-pst-amount"), values.pst);
         writeText(row.querySelector(".ai-other-amount"), values.other);
         writeText(row.querySelector(".ai-tip-amount"), values.tip);
-        writeText(row.querySelector(".ai-row-total"), total);
+        writeText(row.querySelector(".ai-row-total"), rowTotal);
 
         sums.cost += cost;
-        sums.gst += values.gst;
-        sums.pst += values.pst;
-        sums.other += values.other;
-        sums.tip += values.tip;
-        sums.grand += total;
+        optionalColumns.forEach((column) => {
+          sums[column] += included[column] ? values[column] : 0;
+        });
+        sums.grand += rowTotal;
       });
 
       writeText(totals.cost, sums.cost);
@@ -635,15 +681,6 @@
       writeText(totals.tip, sums.tip);
       writeText(totals.grand, sums.grand);
       writeText(totals.large, sums.grand);
-    };
-
-    const applyColumnVisibility = (scope = document) => {
-      all("[data-ai-col-toggle]").forEach((toggle) => {
-        const column = toggle.dataset.aiColToggle;
-        all(`[data-ai-col="${column}"]`, scope).forEach((cell) => {
-          cell.classList.toggle("ai-col-hidden", !toggle.checked);
-        });
-      });
     };
 
     const createRow = () => {
@@ -680,11 +717,8 @@
     });
 
     Object.values(rateInputs).forEach((input) => input?.addEventListener("input", update));
-    all("[data-ai-col-toggle]").forEach((toggle) => {
-      toggle.addEventListener("change", () => applyColumnVisibility(document));
-    });
+    all("[data-ai-col-toggle]").forEach((toggle) => toggle.addEventListener("change", update));
 
-    applyColumnVisibility(document);
     update();
   }
 
