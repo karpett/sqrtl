@@ -72,6 +72,11 @@ def split_page():
     return render_template("split.html", active_page="things")
 
 
+@app.route('/things/trip')
+def trip():
+    return render_template('trip.html', active_page ="things")
+
+
 @app.get("/about")
 def about():
     return render_placeholder("about")

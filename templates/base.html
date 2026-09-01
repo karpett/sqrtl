@@ -40,6 +40,7 @@
      <div class="nav-drop-menu" id="thingsMenu">
       <a href="{{ url_for('calendar_page') }}">calendar</a>
       <a href="{{ url_for('split_page') }}">split</a>
+      <a href="{{ url_for('trip') }}">Trip Planner</a>
      </div>
     </div>
     <a class="{{ 'active' if active_page == 'about' else '' }}" {{ 'aria-current=page' if active_page == 'about' else '' }} href="{{ url_for('about') }}">about</a>
